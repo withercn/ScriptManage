@@ -1,0 +1,73 @@
+﻿body {
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    color: #232323;
+    background-color: #0a5186;
+}
+
+header, footer, nav, section {
+    display: block;
+}
+
+li, ol { list-style: none; }
+/* Styles for basic forms
+-----------------------------------------------------------*/
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.LoginForm { margin: 0 auto; width: 300px; height: 250px;font-family: sans-serif,'Microsoft YaHei'; border: 1px solid #555555; margin-top: 150px; padding: 20px 50px 0 50px;background-color:#FFF; border-radius: 8px;  -moz-transition:0.5s;-o-transition:0.5s;-webkit-transition:0.5s;transition:0.5s;color:#222;box-shadow:rgba(255, 255, 255, 0.80) 0 0 30px 5px;
+}
+    .LoginForm:hover { background: border-box #FFFFFF 5px; -moz-transition:0.5s;-o-transition:0.5s;-webkit-transition:0.5s;transition:0.5s;}
+    .LoginForm input { width: 180px; }
+    .LoginForm button { width: 80px; height: 26px; line-height:20px;margin:0 20px;}
+    .LoginForm header {text-align: center;-moz-text-shadow:0 2px 3px #555;-o-text-shadow:0 2px 3px #555;-webkit-text-shadow:0 2px 3px #555;text-shadow:0 2px 3px #555;}
+    .LoginForm ul.input {height:80px;}
+    .LoginForm ul.input li {height:50px;}
+    .LoginForm ul.input label {font-size:14px;}
+    .LoginForm ul.input li span{display:block;height:30px;line-height:30px;font-size:12px;font-family:Arial;}
+    .LoginForm .erros{padding:0px 0px 20px 40px;height:20px;color:red;}
+    .LoginForm footer { text-align:center;}

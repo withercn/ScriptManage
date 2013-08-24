@@ -1,0 +1,32 @@
+﻿@model ScriptManage.Models.LoginModel
+
+@{
+    ViewBag.Title = "脚本管理系统登陆";
+}
+
+
+@using (Html.BeginForm("Login","User",new { ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post,new{@class="LoginForm"}))
+{
+    @Html.AntiForgeryToken();
+    <header><h2>脚本管理系统</h2></header>
+    <ul class="input">
+        <li>
+            @Html.LabelFor(m => m.username)
+            @Html.TextBoxFor(m => m.username, new { autofocus = "autofocus" })
+            @Html.ValidationMessageFor(m => m.username)
+        </li>
+        <li>
+            @Html.LabelFor(m => m.password)
+            @Html.PasswordFor(m => m.password)
+            @Html.ValidationMessageFor(m => m.password)
+        </li>
+    </ul>
+    <footer>
+        <button>确定</button>
+        <button type="reset">取消</button>
+    </footer>
+    @Html.ValidationSummary(true);
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    }
+}
