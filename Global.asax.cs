@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -14,6 +15,20 @@ namespace ScriptManage
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        public MvcApplication()
+        {
+            AuthorizeRequest += MvcApplication_AuthorizeRequest;
+        }
+
+        void MvcApplication_AuthorizeRequest(object sender, EventArgs e)
+        {
+            IIdentity identity = Context.User.Identity;
+            if (identity.IsAuthenticated)
+            {
+                var roles = Models.UserModel.GetRoles(identity.Name);
+                Context.User = new GenericPrincipal(identity, roles);
+            }
+        }
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

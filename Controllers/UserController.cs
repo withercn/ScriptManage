@@ -5,10 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using ScriptManage.Models;
+using WebMatrix.WebData;
 
 namespace ScriptManage.Controllers
 {
-
     public class UserController : Controller
     {
         [AllowAnonymous]
@@ -25,22 +25,11 @@ namespace ScriptManage.Controllers
         {
             string username = model.username;
             string password = Model.CreateMD5String(model.password);
-
-            using (var db = new UserContext())
+            if (ModelState.IsValid)
             {
-                var query = db.Users.FirstOrDefault(u => (u.username == username && u.password == password));
-                
-                //var query = db.UserProfiles
-                //    .Where(s => s.username == username)
-                //    .FirstOrDefault();
-                //var query = from s in db.UserProfiles
-                //            where (s.username == username)
-                //            select s;
-                if (query == null)
-                    ModelState.AddModelError("", "提供的用户名或密码不正确。");
-                else
+                if (UserModel.ValidUser(username, password))
                 {
-                    Session.Add("User", username);
+                    FormsAuthentication.SetAuthCookie(model.username, false);
                     return RedirectToLocal(returnUrl);
                 }
             }
