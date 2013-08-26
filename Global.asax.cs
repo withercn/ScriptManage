@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using ScriptManage.Models;
 
 namespace ScriptManage
 {
@@ -19,7 +20,7 @@ namespace ScriptManage
         {
             AuthorizeRequest += MvcApplication_AuthorizeRequest;
         }
-
+        
         void MvcApplication_AuthorizeRequest(object sender, EventArgs e)
         {
             IIdentity identity = Context.User.Identity;
