@@ -37,7 +37,11 @@ namespace ScriptManage.Controllers
             LogModel.Write(string.Format("用户：{0} 登陆失败.", username));
             return View(model);
         }
-
+        public ActionResult Logout(string returnUrl)
+        {
+            FormsAuthentication.SignOut();
+            return this.RedirectToLocal(returnUrl);
+        }
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))

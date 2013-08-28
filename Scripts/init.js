@@ -9,3 +9,9 @@ $(".toggleLink").click(function () {
         $(this).parent().next('.toggle').slideDown('slow');
     }
 });
+$(function () {
+    var winHeight = $(window).height();
+    $(".main").css("height", winHeight);
+    $(".aside").css("height", winHeight);
+    $(".content").css("height", winHeight);
+});

@@ -53,12 +53,14 @@ li, ol { list-style: none; }
     .LoginForm footer { text-align:center;}
 
 
-.main {width:100%;margin: 0 auto; font-family: sans-serif,'Microsoft YaHei';  background-color:#FFF; color:#222;overflow:hidden;}
-    .main header {height:80px;line-height:80px;background-color:#333030;color:#ed8f00;border:1px 0 1px 0 #555 solid;}
-        .main header h1 { text-align: center; min-width: 300px;box-shadow:5px 0px 5px #212121;}
+.main {width:100%;margin: 0 auto; font-family: sans-serif,'Microsoft YaHei';  background-color:rgb(248, 248, 248);color:#222;overflow:hidden;}
+    .main header {height:80px;line-height:80px;background-color:#333030;color:#ed8f00;}
+        .main header h1 { text-align: center; width: 300px;box-shadow:3px 0px 10px #000;float:left;}
         .main header h2 { padding-left: 55px;}
         .main header h1, .main header h2 { margin: 0; display:inline-block;}
-.aside {box-shadow: 5px 0px 5px #CCC;min-width:260px;float:left;padding:20px;background:rgb(224, 224, 227);}
+.aside {box-shadow: 3px 0px 5px #333;width:260px;float:left;padding:20px;background:rgb(224, 224, 227);}
     .aside h3 { color: #1f1f20; text-shadow: 0px 1px 0px #fff;font-size:16px;}
+    .aside ul li {line-height:25px;}
         .toggleLink { float: right; color: #666; display: block; text-shadow: 0px 1px 0px #fff;cursor:pointer;font-size:12px;font-family:'宋体';}
 .aside .toggle a { color: #666; text-shadow: 0px 1px 0px #fff; }
+.content {background-color:rgb(248, 248, 248);height:100%;float:left;}
