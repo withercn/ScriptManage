@@ -24,7 +24,23 @@ namespace ScriptManage.Models
             using (var db = new DatabaseContext())
             {
                 var user = db.Users.FirstOrDefault(u => u.username == username);
-                return new string[] { user.role.name };
+                return new string[] { user.role };
+            }
+        }
+        public static Users GetUser(int userid)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var user = db.Users.FirstOrDefault(u => u.id == userid);
+                return user;
+            }
+        }
+        public static Users GetUser(string username)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var user = db.Users.FirstOrDefault(u => u.username == username);
+                return user;
             }
         }
     }

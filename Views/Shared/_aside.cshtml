@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="main">
+    <header>
+        <h1>系统管理员</h1>
+        <h2>操作</h2>
+    </header>
+    <aside class="aside">
+        <h3>脚本管理</h3>
+        <ul class="toggle">
+            <li>@Html.ActionLink("站点管理","index","site")</li>
+            <li>@Html.ActionLink("新建站点","new","site")</li>
+            <li>@Html.ActionLink("新建脚本","new","script")</li>
+        </ul>
+        <h3>主菜单</h3>
+        <ul class="toggle">
+            <li>子菜单</li>
+            <li>子菜单</li>
+            <li>子菜单</li>
+        </ul>
+        <h3>主菜单</h3>
+        <ul class="toggle">
+            <li>子菜单</li>
+            <li>子菜单</li>
+            <li>子菜单</li>
+        </ul>
+    </aside>
+    <section class="content">@RenderBody()</section>
+</section>
+@Scripts.Render("~/bundles/init")

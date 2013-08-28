@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ScriptManage.Models
 {
-    public class Sites
+    public class SiteModel
     {
         public static List<Site> GetSite()
         {

@@ -30,9 +30,11 @@ namespace ScriptManage.Controllers
                 if (UserModel.ValidUser(username, password))
                 {
                     FormsAuthentication.SetAuthCookie(model.username, false);
+                    LogModel.Write(string.Format("用户：{0} 登陆成功.", username));
                     return RedirectToLocal(returnUrl);
                 }
             }
+            LogModel.Write(string.Format("用户：{0} 登陆失败.", username));
             return View(model);
         }
 

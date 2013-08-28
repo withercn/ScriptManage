@@ -14,7 +14,6 @@ namespace ScriptManage.Models
         public DbSet<Site> Site { get; set; }
         public DbSet<Script> Script { get; set; }
         public DbSet<Logs> Logs { get; set; }
-        public DbSet<Role> Role { get; set; }
     }
     [Table("Users")]
     public class Users
@@ -24,15 +23,7 @@ namespace ScriptManage.Models
         public int id { get; set; }
         public string username { get; set; }
         public string password { get; set; }
-        public Role role { get; set; }
-    }
-    [Table("Roles")]
-    public class Role
-    {
-        [Key]
-        [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
-        public string name { get; set; }
+        public string role { get; set; }
     }
     [Table("Logs")]
     public class Logs
@@ -41,7 +32,7 @@ namespace ScriptManage.Models
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
         public string logs { get; set; }
-        public Users user { get; set; }
+        public DateTime dates { get; set; }
     }
     [Table("Site")]
     public class Site
@@ -59,6 +50,6 @@ namespace ScriptManage.Models
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
         public string code { get; set; }
-        public Users user { get; set; }
+        public int siteid { get; set; }
     }
 }

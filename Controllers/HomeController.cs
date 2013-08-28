@@ -4,21 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
+using System.Web.Security;
 using ScriptManage.Models;
 
 namespace ScriptManage.Controllers
 {
-    [Authorize(Roles="系统管理员")]
+    [Authorize]
     public class HomeController : Controller
     {
         //
         // GET: /Home/
         public ActionResult Index()
         {
-            foreach (var site in Sites.GetSite())
-            {
 
-            }
             return View();
         }
         [AllowAnonymous]
@@ -26,13 +24,23 @@ namespace ScriptManage.Controllers
         {
             using (var db = new DatabaseContext())
             {
-                db.Role.Add(new Role() { name = "系统管理员" });
-                db.Role.Add(new Role() { name = "管理员" });
-                db.Role.Add(new Role() { name = "匿名" });
-                db.Users.Add(new Users() { username = "clal", password = Model.CreateMD5String("clyal"), role = new Role() { name = "系统管理员" } });
-                db.SaveChanges();
+                var query = db.Users.FirstOrDefault(u => u.username == "clal");
+                if (query == null)
+                {
+                    db.Users.Add(new Users() { username = "clal", password = Model.CreateMD5String("clyal"), role = "系统管理员" });
+                    db.SaveChanges();
+                }
+                query = db.Users.FirstOrDefault(u => u.username == "admin");
+                if (query == null)
+                {
+                    db.Users.Add(new Users() { username = "admin", password = Model.CreateMD5String("fh88358291"), role = "管理员" });
+                    db.SaveChanges();
+                }
+                FormsAuthentication.SignOut();
+                LogModel.Clear();
+                LogModel.Write("账号初始化，完成.");
             }
-            return View();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
