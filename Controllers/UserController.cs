@@ -37,6 +37,27 @@ namespace ScriptManage.Controllers
             LogModel.Write(string.Format("用户：{0} 登陆失败.", username));
             return View(model);
         }
+        [Authorize]
+        public ActionResult Password(string message)
+        {
+            ViewBag.Message = message;
+            return View();
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Password(PasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (UserModel.ChangePassword(model.oldPassword, model.password))
+                {
+                    return RedirectToAction("Password", new { message = "密码修改成功。" });
+                }
+                ModelState.AddModelError("", "修改失败");
+            }
+            return View(model);
+        }
         public ActionResult Logout(string returnUrl)
         {
             FormsAuthentication.SignOut();

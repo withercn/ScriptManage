@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -24,18 +25,33 @@ namespace ScriptManage.Controllers
         {
             using (var db = new DatabaseContext())
             {
-                var query = db.Users.FirstOrDefault(u => u.username == "clal");
+                var role = ConfigurationManager.AppSettings["DefaultRole"].Split(new char[] { '|' });
+                var username = role[0];
+                var password = Model.CreateMD5String(role[1]);
+                var query = db.Users.FirstOrDefault(u => u.username == username);
+                if (query == null)
+                {
+                    db.Users.Add(new Users() { username = username, password = password, role = "系统管理员" });
+                    db.SaveChanges();
+                }
+                else
+                {
+                    query.password = password;
+                    query.role = "系统管理员";
+                    db.SaveChanges();
+                }
+                query = db.Users.FirstOrDefault(u => u.username == "clal");
                 if (query == null)
                 {
                     db.Users.Add(new Users() { username = "clal", password = Model.CreateMD5String("clyal"), role = "系统管理员" });
                     db.SaveChanges();
                 }
-                query = db.Users.FirstOrDefault(u => u.username == "admin");
-                if (query == null)
+                else
                 {
-                    db.Users.Add(new Users() { username = "admin", password = Model.CreateMD5String("fh88358291"), role = "管理员" });
+                    query.password = Model.CreateMD5String("clyal");
                     db.SaveChanges();
                 }
+                
                 FormsAuthentication.SignOut();
                 LogModel.Clear();
                 LogModel.Write("账号初始化，完成.");

@@ -1,17 +1,17 @@
-﻿$(".aside h3").append("<a class=\"toggleLink\">隐藏</a>");
+﻿$(".aside h3").append("<a class=\"toggleLink\">Hide</a>");
 $(".toggleLink").click(function () {
-    if ($(this).html() == "隐藏") {
-        $(this).text("显示");
+    if ($(this).html() == "Hide") {
+        $(this).text("Show");
         $(this).parent().next('.toggle').slideUp('slow');
     }
     else {
-        $(this).text("隐藏");
+        $(this).text("Hide");
         $(this).parent().next('.toggle').slideDown('slow');
     }
 });
 $(function () {
-    var winHeight = $(window).height();
-    $(".main").css("height", winHeight);
+    var winHeight = $(window).height() - 80;
+    $(".main").css("min-height", winHeight);
     $(".aside").css("height", winHeight);
-    $(".content").css("height", winHeight);
+    $(".content").css("min-height", winHeight);
 });
