@@ -8,11 +8,11 @@ namespace ScriptManage
         // 有关 Bundling 的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery-{version}.js"));
             bundles.Add(new ScriptBundle("~/bundles/JqueryValidate").Include("~/Scripts/jquery.validate*"));
             bundles.Add(new ScriptBundle("~/bundles/jquerycookie").Include("~/Scripts/jquery.cookie.js"));
             bundles.Add(new ScriptBundle("~/bundles/init").Include("~/Scripts/init.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jquerytable").Include("~/Scripts/jquery.tablesorter.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
 

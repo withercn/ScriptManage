@@ -11,6 +11,20 @@ namespace ScriptManage.Controllers
 {
     public class UserController : Controller
     {
+        [Authorize(Roles = "系统管理员")]
+        public ActionResult Index(int? id)
+        {
+            int pageindex = 1;
+            if (id != null)
+                pageindex = (int)id;
+            var pagesize = 10;
+            var db = new DatabaseContext();
+            var record = db.Users.Count();
+            HtmlPager pager = new HtmlPager(record, pageindex, pagesize);
+            ViewBag.Pager = pager;
+            var query = db.Users.OrderByDescending(u => u.id).Skip((pageindex - 1) * pagesize).Take(pagesize);
+            return View(query);
+        }
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {

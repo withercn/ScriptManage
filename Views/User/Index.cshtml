@@ -1,0 +1,49 @@
+﻿@{
+	Layout = "~/Views/Shared/_aside.cshtml";
+	ViewBag.Title = "用户管理";
+}
+<div class="module user">
+	<header><h3>用户列表</h3></header>
+	<div class="contents">
+		<table class="tablesorter" cellspacing="0">
+			<thead><tr>
+				<th class="header"><span class="all">全选</span> / <span class="none">反选</span></th>
+				<th class="header">编号 <img src="~/Images/bg.gif" /></th>
+				<th class="header">账号</th>
+				<th class="header">角色</th>
+				<th class="header">操作</th>
+			</tr></thead>
+			<tbody>
+				@foreach (var m in Model)
+				{
+					<tr>
+					<td><input type="checkbox" name="@m.id" /></td>
+					<td>@m.id</td>
+					<td>@m.username</td>
+					<td>@m.role</td>
+					<td class="action"><a href="@Url.Action("Edit/"+m.id)"><img src="~/Images/icn_edit.png" /></a> <a href="@Url.Action("Del/"+m.id)"><img src="~/Images/icn_trash.png" /></a></td>
+					</tr>
+				}
+			</tbody>
+		</table>
+		<div id="pager" class="pager">
+			<form>
+				<a href="@Url.Action("Index/1","User")"><img src="~/pager/first.png" class="first" /></a>
+				<img src="~/pager/prev.png" class="prev" />
+				<input type="text" class="pagedisplay" />
+				<img src="~/pager/next.png" class="next" />
+				<img src="~/pager/last.png" class="last" />
+				<select class="pagesize">
+					<option selected="selected" value="10">10</option>
+					<option value="20">20</option>
+					<option value="30">30</option>
+					<option value="40">40</option>
+				</select>
+			</form>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+@section Scripts{
+	@Scripts.Render("~/bundles/jquerytable")
+}

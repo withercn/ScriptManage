@@ -30,6 +30,7 @@
     <section class="content">@RenderBody()</section>
     <div class="clear"></div>
 </section>
-@Scripts.Render("~/bundles/jquery")
-@RenderSection("scripts", required: false)
-@Scripts.Render("~/bundles/init")
+@section Scripts {
+    @Scripts.Render("~/bundles/init")
+    @RenderSection("scripts", required: false)
+    }

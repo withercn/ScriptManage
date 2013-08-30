@@ -134,6 +134,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DatabaseContext.cs" />
+    <Compile Include="Models\HtmlPager.cs" />
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\Site.cs" />
     <Compile Include="Models\User.cs" />
@@ -199,9 +200,16 @@
     <Content Include="Content\Site.css" />
     <None Include="Properties\PublishProfiles\ScriptManage.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\icn_edit.png" />
+    <Content Include="Images\icn_trash.png" />
     <Content Include="Js\qqdd.js" />
     <Content Include="Js\swt.js" />
     <Content Include="Js\swt1.js" />
+    <Content Include="pager\first.png" />
+    <Content Include="pager\last.png" />
+    <Content Include="pager\next.png" />
+    <Content Include="pager\pager.css" />
+    <Content Include="pager\prev.png" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -209,6 +217,8 @@
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\init.js" />
+    <Content Include="Scripts\jquery.tablesorter.min.js" />
+    <Content Include="Scripts\jquery.tablesorter.pager.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -222,6 +232,12 @@
     <Content Include="Scripts\swt.js" />
     <Content Include="Scripts\swt1.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Scripts\jquery.tablesorter.js" />
+    <Content Include="Images\asc.gif" />
+    <Content Include="Images\bg.gif" />
+    <Content Include="Images\desc.gif" />
+    <Content Include="sorter\style.css" />
+    <Content Include="tablesorter.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -239,6 +255,7 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Shared\_aside.cshtml" />
     <Content Include="Views\User\Password.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

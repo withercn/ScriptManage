@@ -14,4 +14,6 @@ $(function () {
     $(".main").css("min-height", winHeight);
     $(".aside").css("height", winHeight);
     $(".content").css("min-height", winHeight);
+    $(".tablesorter")
+        .tablesorter({ widthFixed: true, widgets: ['zebra'] })
 });

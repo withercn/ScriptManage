@@ -14,7 +14,7 @@ a { text-decoration: none; }
 a:link, a:visited { color: #77bace; }
 a:hover { text-decoration: underline; }
 li, ol { list-style: none; }
-
+img { vertical-align:middle;border:0;}
 /* Styles for validation helpers
 -----------------------------------------------------------*/
 .field-validation-error {
@@ -67,8 +67,9 @@ li, ol { list-style: none; }
 .aside .toggle a { color: #333;}
 .content {background-color:rgb(248, 248, 248);height:100%;width:78%;float:right;}
 
-.module { border: 1px solid #9BA0AF; width: 100%; margin: 20px 3% 0 3%; margin-top: 20px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; background: #ffffff; }
+.module { border: 1px solid #9BA0AF; width: 100%; margin: 20px 3% 0 3%; margin-top: 20px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; background: #ffffff; box-shadow: 1px 1px 3px rgba(0,0,0,0.5);-moz-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);-webkit-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);-o-box-shadow: 1px 1px 3px rgba(0,0,0,0.5);}
 .passwordForm { width: 50%; }
+.user { width: 70%; }
 .module header { height: 38px; width: 100%; background: #F1F1F4; -webkit-border-top-left-radius: 5px; -webkit-border-top-right-radius: 5px; -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px;box-shadow: 0px 1px 3px rgba(0,0,0,0.5); -moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.5); -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.5); }
 .module header h3 { display: block; width: 90%; float: left; }
 .module .contents { margin: 10px 20px; color: #666; }
@@ -77,3 +78,18 @@ li, ol { list-style: none; }
     .module .contents .button { margin-left: 100px; }
         .module .contents .button button { margin: 5px 10px; }
 .module .msg { margin: 10px 0px 10px 100px; color: green;font-family:'宋体';font-size:12px;}
+
+.tablesorter { width: 100%; margin: -5px 0 0 0; font-family:"Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;font-size:12px;}
+    .tablesorter td { margin: 0; padding: 0; border-bottom: 1px dotted #ccc; }
+    .tablesorter thead tr { height: 34px; text-align: left; text-indent: 10px; }
+        .tablesorter thead tr th { text-align: left;font-weight:normal;}
+            .tablesorter thead tr th img { cursor: pointer; }
+            .tablesorter thead tr th span { cursor: pointer;font-weight:normal;}
+                .tablesorter thead tr th span:hover { text-decoration: underline; }
+    .tablesorter td { padding: 10px 10px; }
+    .tablesorter input[type=image] { margin-right: 10px; }
+    .tablesorter .action img { margin: 0 5px; }
+.pager { float: right; margin-bottom: 5px;margin:10px 0px;vertical-align:middle;height:30px;line-height:30px;}
+.pagedisplay { text-align: center; }
+.emptydatatemplate { display: none; }
+.exportlink { display: none; }

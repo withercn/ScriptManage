@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
@@ -54,6 +55,14 @@ namespace ScriptManage.Models
             {
                 var user = db.Users.FirstOrDefault(u => u.username == username);
                 return user;
+            }
+        }
+        public static List<Users> GetUser(int page, int pagesize)
+        {
+            List<Users> list = new List<Users>();
+            using (var db = new DatabaseContext())
+            {
+                return null;
             }
         }
     }

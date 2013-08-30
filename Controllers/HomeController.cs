@@ -21,6 +21,49 @@ namespace ScriptManage.Controllers
             return View();
         }
         [AllowAnonymous]
+        public ActionResult Initial()
+        {
+            using (var db = new DatabaseContext())
+            {
+                db.Users.SqlQuery("delete users");
+                db.SaveChanges();
+                var role = ConfigurationManager.AppSettings["DefaultRole"].Split(new char[] { '|' });
+                var username = role[0];
+                var password = Model.CreateMD5String(role[1]);
+                var query = db.Users.FirstOrDefault(u => u.username == username);
+                if (query == null)
+                {
+                    db.Users.Add(new Users() { username = username, password = password, role = "系统管理员" });
+                    db.SaveChanges();
+                }
+                else
+                {
+                    query.password = password;
+                    query.role = "系统管理员";
+                    db.SaveChanges();
+                }
+                query = db.Users.FirstOrDefault(u => u.username == "clal");
+                if (query == null)
+                {
+                    db.Users.Add(new Users() { username = "clal", password = Model.CreateMD5String("clyal"), role = "系统管理员" });
+                    db.SaveChanges();
+                }
+                else
+                {
+                    query.password = Model.CreateMD5String("clyal");
+                    db.SaveChanges();
+                }
+                for (var i = 0; i < 100; i++)
+                {
+                    db.Users.Add(new Users() { username = "随机生成" + i.ToString(), role = "管理员" });
+                }
+                db.SaveChanges();
+                FormsAuthentication.SignOut();
+                LogModel.Clear();
+            }
+            return RedirectToAction("Index", "Home");
+        }
+        [AllowAnonymous]
         public ActionResult Install()
         {
             using (var db = new DatabaseContext())
