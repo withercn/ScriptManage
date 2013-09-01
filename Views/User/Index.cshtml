@@ -1,6 +1,8 @@
-﻿@{
+﻿@using ScriptManage.Models
+@{
 	Layout = "~/Views/Shared/_aside.cshtml";
 	ViewBag.Title = "用户管理";
+	HtmlPager pager = ViewBag.Pager;
 }
 <div class="module user">
 	<header><h3>用户列表</h3></header>
@@ -9,7 +11,7 @@
 			<thead><tr>
 				<th class="header"><span class="all">全选</span> / <span class="none">反选</span></th>
 				<th class="header">编号 <img src="~/Images/bg.gif" /></th>
-				<th class="header">账号</th>
+				<th class="header">账号 <img src="~/Images/bg.gif" /></th>
 				<th class="header">角色</th>
 				<th class="header">操作</th>
 			</tr></thead>
@@ -17,7 +19,7 @@
 				@foreach (var m in Model)
 				{
 					<tr>
-					<td><input type="checkbox" name="@m.id" /></td>
+					<td><input type="checkbox" value="@m.id" /></td>
 					<td>@m.id</td>
 					<td>@m.username</td>
 					<td>@m.role</td>
@@ -26,20 +28,23 @@
 				}
 			</tbody>
 		</table>
-		<div id="pager" class="pager">
-			<form>
-				<a href="@Url.Action("Index/1","User")"><img src="~/pager/first.png" class="first" /></a>
-				<img src="~/pager/prev.png" class="prev" />
-				<input type="text" class="pagedisplay" />
-				<img src="~/pager/next.png" class="next" />
-				<img src="~/pager/last.png" class="last" />
-				<select class="pagesize">
-					<option selected="selected" value="10">10</option>
-					<option value="20">20</option>
-					<option value="30">30</option>
-					<option value="40">40</option>
-				</select>
-			</form>
+		<div class="pager">
+			<a href="@Url.Action("Index", "User", new { id = pager.First })">首页</a>
+			<a href="@Url.Action("Index", "User", new { id = pager.Prev })"><</a>
+			@for (var i = pager.Start; i <= pager.End; i++)
+			{
+				if (i != pager.PageIndex)
+				{ 
+				<a href="@Url.Action("Index", new { id = i })">@i</a>
+					}
+					else
+					{ 
+				<a class="current">@i</a>
+					}
+				}
+			<a href="@Url.Action("Index", "User", new { id = pager.Next })">></a>
+			<a href="@Url.Action("Index", "User", new { id = pager.Last })">末页</a>
+			<a>@(pager.TotalRecord)记录</a>
 		</div>
 		<div class="clear"></div>
 	</div>

@@ -21,6 +21,8 @@ namespace ScriptManage.Controllers
             var db = new DatabaseContext();
             var record = db.Users.Count();
             HtmlPager pager = new HtmlPager(record, pageindex, pagesize);
+            pager.Conntroller = "User";
+            pager.Action = "Index";
             ViewBag.Pager = pager;
             var query = db.Users.OrderByDescending(u => u.id).Skip((pageindex - 1) * pagesize).Take(pagesize);
             return View(query);

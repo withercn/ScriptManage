@@ -89,7 +89,11 @@ img { vertical-align:middle;border:0;}
     .tablesorter td { padding: 10px 10px; }
     .tablesorter input[type=image] { margin-right: 10px; }
     .tablesorter .action img { margin: 0 5px; }
-.pager { float: right; margin-bottom: 5px;margin:10px 0px;vertical-align:middle;height:30px;line-height:30px;}
-.pagedisplay { text-align: center; }
+    .tablesorter tbody tr{ transition-duration:0.5s;}
+    .tablesorter tbody tr:hover { background-color: #e08414;color:#000;font-family:'Microsoft YaHei';cursor:default;transition-duration:0.5s;}
+.pager { float: right; margin-bottom: 5px;margin:10px 0px;height:30px;line-height:30px;font-size:14px;}
 .emptydatatemplate { display: none; }
 .exportlink { display: none; }
+.pager a { background: #e6b975;color:#391a00;border-radius: 5px;padding:4px 8px;font-family:'Microsoft YaHei UI';text-align:center;box-shadow: 1px 1px 3px rgba(0,0,0,0.4);margin: 3px; font-size: 14px;border:1px solid #ab9063;transition-duration:0.5s;}
+    .pager a:hover { text-decoration: none;background-color:#fbe0b7;}
+    .pager a.current { cursor:default;background: #513000;color:#f9e2c3}
