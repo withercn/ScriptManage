@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Security;
 using ScriptManage.Models;
 
 namespace ScriptManage
@@ -27,6 +28,11 @@ namespace ScriptManage
             if (identity.IsAuthenticated)
             {
                 var roles = Models.UserModel.GetRoles(identity.Name);
+                if (roles == null)
+                {
+                    FormsAuthentication.SignOut();
+                    return;
+                }
                 Context.User = new GenericPrincipal(identity, roles);
             }
         }

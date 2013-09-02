@@ -38,6 +38,7 @@ namespace ScriptManage.Models
             using (var db = new DatabaseContext())
             {
                 var user = db.Users.FirstOrDefault(u => u.username == username);
+                if (user == null) return null;
                 return new string[] { user.role };
             }
         }
@@ -65,6 +66,28 @@ namespace ScriptManage.Models
                 return null;
             }
         }
+        public static void DeleteUser(string id)
+        {
+            using (var db = new DatabaseContext())
+            {
+                db.Database.ExecuteSqlCommand(string.Format("delete [users] where id in ({0}) and role<>'系统管理员'", id));
+            }
+        }
+        public static bool NewUser(string username,string password)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var query = db.Users.FirstOrDefault(u => u.username == username);
+                if (query != null)
+                    return false;
+                else
+                {
+                    db.Users.Add(new Users() { username = username, password = Model.CreateMD5String(password), role = "管理员" });
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+        }
     }
 
     public class LoginModel
@@ -77,6 +100,25 @@ namespace ScriptManage.Models
         [DataType(DataType.Password)]
         [Display(Name = "密码")]
         public string password { get; set; }
+    }
+    public class RegisterModel
+    {
+        [Required]
+        [Display(Name = "账号")]
+        [StringLength(20, MinimumLength = 4, ErrorMessage = "{0} 必须至少包含 {2} 个字符。")]
+        public string username { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "密码")]
+        [StringLength(20, MinimumLength = 4, ErrorMessage = "{0} 必须至少包含 {2} 个字符。")]
+        public string password { get; set; }
+
+        [Required]
+        [Display(Name = "重复密码")]
+        [DataType(DataType.Password)]
+        [Compare("password", ErrorMessage = "新密码与重复密码不相同。")]
+        public string rePassword { get; set; }
     }
     public class PasswordModel
     {

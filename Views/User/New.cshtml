@@ -1,0 +1,40 @@
+﻿@model ScriptManage.Models.RegisterModel
+@{
+    ViewBag.Title = "新账号";
+    Layout = "~/Views/Shared/_aside.cshtml";
+}
+
+<section class="module newuser">
+    <header><h3>新建账户</h3></header>
+    <div class="contents">
+        @using (Html.BeginForm("New", "User")) 
+        { 
+            @Html.AntiForgeryToken();
+            <ul class="forms">
+                <li>
+                    @Html.LabelFor(m => m.username)
+                    @Html.TextBoxFor(m => m.username, new { autofocus = "autofocus" })
+                    @Html.ValidationMessageFor(m => m.username)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.password)
+                    @Html.PasswordFor(m => m.password)
+                    @Html.ValidationMessageFor(m => m.password)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.rePassword)
+                    @Html.PasswordFor(m => m.rePassword)
+                    @Html.ValidationMessageFor(m => m.rePassword)
+                </li>
+            </ul>
+            <div class="msg">@Html.ValidationSummary(true)@ViewBag.Message</div>
+            <div class="button pager">
+            <button class="normal" type="submit">新建账户</button>
+            <button class="normal" type="reset">重新输入</button>
+        </div>
+        }
+    </div>
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    }

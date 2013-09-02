@@ -33,7 +33,44 @@ namespace ScriptManage.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-
+        [Authorize(Roles = "系统管理员")]
+        public ActionResult Del(int id)
+        {
+            UserModel.DeleteUser(id.ToString());
+            return RedirectToAction("Index", "User");
+        }
+        [Authorize(Roles = "系统管理员")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Del()
+        {
+            string idlist = Request.Form["id"];
+            UserModel.DeleteUser(idlist);
+            return RedirectToAction("Index", "User");
+        }
+        [Authorize(Roles = "系统管理员")]
+        public ActionResult New()
+        {
+            return View();
+        }
+        [Authorize(Roles = "系统管理员")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult New(RegisterModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (UserModel.NewUser(model.username, model.password))
+                {
+                    @ViewBag.Message = "账号添加成功。";
+                }
+                else
+                {
+                    ModelState.AddModelError("", "账号已经存在。");
+                }
+            }
+            return View();
+        }
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]

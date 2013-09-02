@@ -129,6 +129,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SiteController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -205,11 +206,6 @@
     <Content Include="Js\qqdd.js" />
     <Content Include="Js\swt.js" />
     <Content Include="Js\swt1.js" />
-    <Content Include="pager\first.png" />
-    <Content Include="pager\last.png" />
-    <Content Include="pager\next.png" />
-    <Content Include="pager\pager.css" />
-    <Content Include="pager\prev.png" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -236,7 +232,6 @@
     <Content Include="Images\asc.gif" />
     <Content Include="Images\bg.gif" />
     <Content Include="Images\desc.gif" />
-    <Content Include="sorter\style.css" />
     <Content Include="tablesorter.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -256,10 +251,11 @@
     <Content Include="Views\Shared\_aside.cshtml" />
     <Content Include="Views\User\Password.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\New.cshtml" />
+    <Content Include="Views\Site\Index.cshtml" />
+    <Content Include="Views\Site\New.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
