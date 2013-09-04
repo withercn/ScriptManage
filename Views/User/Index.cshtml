@@ -1,8 +1,7 @@
-﻿@using ScriptManage.Models
-@{
+﻿@{
 	Layout = "~/Views/Shared/_aside.cshtml";
 	ViewBag.Title = "用户管理";
-	HtmlPager pager = ViewBag.Pager;
+	ScriptManage.Models.HtmlPager pager = ViewBag.Pager;
 }
 <div class="module user">
 	<header><h3>用户列表</h3></header>
@@ -28,7 +27,7 @@
 							<td>@m.id</td>
 							<td>@m.username</td>
 							<td>@m.role</td>
-							<td class="action"><a href="@Url.Action("Del/" + m.id)"><img src="~/Images/icn_trash.png" /></a></td>
+							<td class="pager"><a href="@Url.Action("Del/" + m.id)">删除</a></td>
 						</tr>
 					}
 				</tbody>
@@ -52,7 +51,7 @@
 				}
 				<a href="@Url.Action("Index", "User", new { id = pager.Next })">></a>
 				<a href="@Url.Action("Index", "User", new { id = pager.Last })">末页</a>
-				<a>@(pager.TotalRecord)条记录</a>
+				<a>共@(pager.TotalRecord)个账号</a>
 			</div>
 		}
 		<div class="clear"></div>

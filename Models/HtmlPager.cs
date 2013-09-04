@@ -20,8 +20,6 @@ namespace ScriptManage.Models
         public int Last { get; set; }
         public int Start { get; set; }
         public int End { get; set; }
-        public string Conntroller { get; set; }
-        public string Action { get; set; }
 
         public HtmlPager(int total, int pageindex, int pagesize)
         {

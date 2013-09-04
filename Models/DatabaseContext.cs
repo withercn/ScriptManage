@@ -11,8 +11,8 @@ namespace ScriptManage.Models
     {
         public DatabaseContext() : base("Scripts") { }
         public DbSet<Users> Users { get; set; }
-        public DbSet<Site> Site { get; set; }
-        public DbSet<Script> Script { get; set; }
+        public DbSet<Sites> Sites { get; set; }
+        public DbSet<Scripts> Scripts { get; set; }
         public DbSet<Logs> Logs { get; set; }
     }
     [Table("Users")]
@@ -34,8 +34,8 @@ namespace ScriptManage.Models
         public string logs { get; set; }
         public DateTime dates { get; set; }
     }
-    [Table("Site")]
-    public class Site
+    [Table("Sites")]
+    public class Sites
     {
         [Key]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
@@ -43,13 +43,26 @@ namespace ScriptManage.Models
         public string domain { get; set; }
         public string name { get; set; }
     }
-    [Table("Script")]
-    public class Script
+    [Table("Scripts")]
+    public class Scripts
     {
         [Key]
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
+        public string name { get; set; }
         public string code { get; set; }
-        public int siteid { get; set; }
+        /// <summary>
+        /// 网站id
+        /// </summary>
+        public int sid { get; set; }
+        /// <summary>
+        /// 脚本类型
+        /// 0、本地脚本(多个本地脚本打包)
+        /// 2、远程脚本
+        /// </summary>
+        public int type { get; set; }
+        public bool del { get; set; }
+        public bool locks { get; set; }
+        public DateTime dates { get; set; }
     }
 }

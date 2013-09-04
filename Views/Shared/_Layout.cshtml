@@ -5,7 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")    
+    @Styles.Render("~/Content/css")
+    @RenderSection("styles", required: false)
+    @RenderSection("SyntaxHighlighter", required: false)
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>

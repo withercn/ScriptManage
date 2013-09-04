@@ -29,7 +29,7 @@ namespace ScriptManage.Controllers
                 db.SaveChanges();
                 for (var i = 0; i < 100; i++)
                 {
-                    db.Site.Add(new Site() { domain = "www.sz16.cn", name = "深圳医疗网" });
+                    db.Sites.Add(new Sites() { domain = "www.sz16.cn", name = "深圳医疗网" });
                 }
                 db.SaveChanges();
             }

@@ -1,36 +1,42 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <section class="main">
-    <header>
-        <h1>系统管理员</h1>
-        <h2>操作</h2>
-    </header>
-    <aside class="aside">
-        @if (HttpContext.Current.User.IsInRole("系统管理员"))
-        {
-            <h3>用户</h3>
-            <ul class="toggle">
-                <li>@Html.ActionLink("用户管理","index","user")</li>
-                <li>@Html.ActionLink("新建用户","new","user")</li>
-            </ul>
-        }
-        <h3>脚本</h3>
-        <ul class="toggle">
-            <li>@Html.ActionLink("站点管理","index","site")</li>
-            <li>@Html.ActionLink("新建站点","new","site")</li>
-            <li>@Html.ActionLink("新建脚本","new","script")</li>
-        </ul>
-        <h3>安全</h3>
-        <ul class="toggle">
-            <li>@Html.ActionLink("修改密码","password","user")</li>
-            <li>@Html.ActionLink("退出登陆","Logout","user")</li>
-        </ul>
-    </aside>
-    <section class="content">@RenderBody()</section>
-    <div class="clear"></div>
+	<header>
+		<h1>系统管理员</h1>
+		<h2>操作</h2>
+	</header>
+	<aside class="aside">
+		@if (HttpContext.Current.User.IsInRole("系统管理员"))
+		{
+			<h3>用户</h3>
+			<ul class="toggle">
+				<li>@Html.ActionLink("用户管理","index","user")</li>
+				<li>@Html.ActionLink("新建用户","new","user")</li>
+			</ul>
+		}
+		<h3>脚本</h3>
+		<ul class="toggle">
+			<li>@Html.ActionLink("站点管理","index","site")</li>
+			<li>@Html.ActionLink("新建站点","new","site")</li>
+			<li>@Html.ActionLink("新建脚本","new","script")</li>
+		</ul>
+		<h3>安全</h3>
+		<ul class="toggle">
+			<li>@Html.ActionLink("修改密码","password","user")</li>
+			<li>@Html.ActionLink("退出登陆","Logout","user")</li>
+		</ul>
+	</aside>
+	<section class="content">@RenderBody()</section>
+	<div class="clear"></div>
 </section>
 @section Scripts {
-    @Scripts.Render("~/bundles/init")
-    @RenderSection("scripts", required: false)
-    }
+	@Scripts.Render("~/bundles/init")
+	@RenderSection("scripts", required: false)
+}
+@section Styles{
+	@RenderSection("styles", required: false)
+}
+@section SyntaxHighlighter{
+	@RenderSection("SyntaxHighlighter", required: false)
+}

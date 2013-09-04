@@ -1,8 +1,8 @@
-﻿@using ScriptManage.Models;
+﻿
 @{
 	ViewBag.Title = "网站管理";
 	Layout = "~/Views/Shared/_aside.cshtml";
-	HtmlPager pager = ViewBag.Pager;
+	ScriptManage.Models.HtmlPager pager = ViewBag.Pager;
 }
 
 <div class="module user">
@@ -27,15 +27,19 @@
 					<td>@m.id</td>
 					<td>@m.domain</td>
 					<td>@m.name</td>
-					<td class="action"><a href="@Url.Action("Del/"+m.id)"><img src="~/Images/icn_trash.png" /></a> <img class="edit" src="~/Images/icn_edit.png" /></td>
+					<td class="pager">
+						<a href="@Url.Action("Del", "Site", new { id = m.id })">删除</a>
+						<a href="@Url.Action("Detail", "Site", new { id = m.id })">详细</a>
+						<a href="@Url.Action("Index", "Script", new { id = m.id })">管理</a>
+					</td>
 					</tr>
 				}
 			</tbody>
 		</table>
 			<div class="pager">
 				<span class="all">全选</span> / <span class="none">反选</span>
-				<button class="delete" type="submit">批量删除</button>
-				@Html.ActionLink("添加站点", "New", "Site")
+				<button class="delete" type="submit">删除</button>
+				@Html.ActionLink("添加", "New", "Site")
 				<a href="@Url.Action("Index", "Site", new { id = pager.First })">首页</a>
 				<a href="@Url.Action("Index", "Site", new { id = pager.Prev })"><</a>
 				@for (var i = pager.Start; i <= pager.End; i++)
@@ -51,9 +55,10 @@
 				}
 				<a href="@Url.Action("Index", "Site", new { id = pager.Next })">></a>
 				<a href="@Url.Action("Index", "Site", new { id = pager.Last })">末页</a>
-				<a>@(pager.TotalRecord)条记录</a>
+				<a>共@(pager.TotalRecord)个网站</a>
 			</div>
 		}
+		<div class="msg">@ViewBag.Message</div>
 		<div class="clear"></div>
 	</div>
 </div>

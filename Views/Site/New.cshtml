@@ -12,21 +12,21 @@
             @Html.AntiForgeryToken();
             <ul class="forms">
                 <li>
-                    @Html.LabelFor(m => m.domain)
-                    @Html.TextBoxFor(m => m.domain, new { autofocus = "autofocus",style="width:200px" })
-                    @Html.ValidationMessageFor(m => m.domain)
+                    @Html.LabelFor(m => m.name)
+                    @Html.TextBoxFor(m => m.name, new { autofocus = "autofocus", style = "width:250px" })
+                    @Html.ValidationMessageFor(m => m.name)
                 </li>
                 <li>
-                    @Html.LabelFor(m => m.name)
-                    @Html.TextBoxFor(m => m.name)
-                    @Html.ValidationMessageFor(m => m.name)
+                    @Html.LabelFor(m => m.domain)
+                    @Html.TextBoxFor(m => m.domain, new { style="width:250px" })
+                    @Html.ValidationMessageFor(m => m.domain)
                 </li>
             </ul>
             <div class="msg">@Html.ValidationSummary(true)@ViewBag.Message</div>
             <div class="button pager">
-            <button class="normal" type="submit">新建网站</button>
-            <button class="normal" type="reset">重新输入</button>
-        </div>
+                <button class="normal" type="submit">新建网站</button>
+                <button class="normal" type="reset">重新输入</button>
+            </div>
         }
     </div>
 </section>

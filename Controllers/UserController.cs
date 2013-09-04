@@ -21,8 +21,6 @@ namespace ScriptManage.Controllers
             var db = new DatabaseContext();
             var record = db.Users.Count();
             HtmlPager pager = new HtmlPager(record, pageindex, pagesize);
-            pager.Conntroller = "User";
-            pager.Action = "Index";
             ViewBag.Pager = pager;
             var query = db.Users.OrderByDescending(u => u.id).Skip((pageindex - 1) * pagesize).Take(pagesize);
             return View(query);
@@ -62,7 +60,7 @@ namespace ScriptManage.Controllers
             {
                 if (UserModel.NewUser(model.username, model.password))
                 {
-                    @ViewBag.Message = "账号添加成功。";
+                    ViewBag.Message = "账号添加成功。";
                 }
                 else
                 {

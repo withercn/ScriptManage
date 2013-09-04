@@ -13,9 +13,10 @@ namespace ScriptManage
             bundles.Add(new ScriptBundle("~/bundles/jquerycookie").Include("~/Scripts/jquery.cookie.js"));
             bundles.Add(new ScriptBundle("~/bundles/init").Include("~/Scripts/init.js"));
             bundles.Add(new ScriptBundle("~/bundles/jquerytable").Include("~/Scripts/jquery.tablesorter.js"));
-            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                        "~/Scripts/jquery-ui-{version}.js"));
-
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include("~/Scripts/jquery-ui-{version}.js"));
+            bundles.Add(new ScriptBundle("~/bundles/SyntaxHighlighter").Include(
+                        "~/Scripts/SyntaxHighlighter/shCore.js", 
+                        "~/Scripts/SyntaxHighlighter/shBrushJScript.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
@@ -24,7 +25,7 @@ namespace ScriptManage
             // 生产准备时，请使用 http://modernizr.com 上的生成工具来仅选择所需的测试。
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
-
+            bundles.Add(new StyleBundle("~/Content/SyntaxHighlighter").Include("~/Content/SyntaxHighlighter/shCore.css", "~/Content/SyntaxHighlighter/shThemeDefault.css"));
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(

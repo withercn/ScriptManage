@@ -18,12 +18,10 @@ namespace ScriptManage.Controllers
                 pageindex = (int)id;
             var pagesize = 10;
             var db = new DatabaseContext();
-            var record = db.Site.Count();
+            var record = db.Sites.Count();
             HtmlPager pager = new HtmlPager(record, pageindex, pagesize);
-            pager.Conntroller = "Site";
-            pager.Action = "Index";
             ViewBag.Pager = pager;
-            var query = db.Site.OrderByDescending(s => s.id).Skip((pageindex - 1) * pagesize).Take(pagesize);
+            var query = db.Sites.OrderByDescending(s => s.id).Skip((pageindex - 1) * pagesize).Take(pagesize);
             return View(query);
         }
         [Authorize(Roles="系统管理员")]
@@ -44,9 +42,20 @@ namespace ScriptManage.Controllers
         public ActionResult New()
         { return View(); }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult New(SiteNewModel model)
         {
+            if (ModelState.IsValid)
+            {
+                if (!SiteModel.NewSite(new Sites() { domain = model.domain, name = model.name }))
+                {
+                    ModelState.AddModelError("", "域名已经存在。");
+                }
+                ViewBag.Message = "添加站点成功。";
+            }
             return View();
         }
+
+
     }
 }
