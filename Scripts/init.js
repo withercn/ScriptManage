@@ -32,26 +32,65 @@ $("span.none").click(function () {
             $(this).attr("checked", "checked");
     });
 });
+$(".selects").change(function () {
+    if ($(this).val() == 1)
+        $("#code").addClass("code");
+    else
+        $("#code").removeClass();
+    $("#code").focus();
+});
 $(".list header .show").click(function () {
     var index = $(".list header .show").index(this);
     $(".list .editor:eq(" + index + ")").hide(500);
-    if ($(".syntaxhighlighter:eq(" + index + ")").css("display") == "none") {
-        $(".syntaxhighlighter:eq(" + index + ")").slideDown(1000);
-        $(this).html("关闭");
+    if ($(".codeHigh:eq(" + index + ")").css("display") == "none") {
+        if ($("form:eq(" + index + ") input:hidden:eq(3)").val() != "1") {
+            var sid = $("form:eq(" + index + ") input:hidden:eq(2)").val();
+            var action = "/Script/Code/" + sid;
+            $.get(action, function (results) {
+                $(".list .editor textarea:eq(" + index + ")").val(results);
+                var pre_results = $('<pre class="brush: js;toolbar: false;"></pre>');
+                pre_results.append(results);
+                $(".codeHigh").empty();
+                $(".codeHigh").append(pre_results);
+                SyntaxHighlighter.highlight();
+                $("form:eq(" + index + ") input:hidden:eq(3)").val(1);
+                $(".codeHigh:eq(" + index + ")").slideDown(500);
+                $(this).html("关闭");
+            });
+        }
+        else {
+            $(".codeHigh:eq(" + index + ")").slideDown(500);
+            $(this).html("关闭");
+        }
     }
     else {
-        $(".syntaxhighlighter:eq(" + index + ")").slideUp(1000);
+        $(".codeHigh:eq(" + index + ")").slideUp(500);
         $(this).html("查看");
     }
 });
 $(".list header .editCode").click(function () {
     var index = $(".list header .editCode").index(this);
-    $(".syntaxhighlighter:eq(" + index + ")").slideUp(500);
+    $(".codeHigh:eq(" + index + ")").slideUp(500);
     $(".list header .show:eq(" + index + ")").html("查看");
-    if ($(".list .editor:eq(" + index + ")").css("display") == "none")
-        $(".list .editor:eq(" + index + ")").slideDown(1000);
-    else
-        $(".list .editor:eq(" + index + ")").slideUp(1000);
+    if ($(".list .editor:eq(" + index + ")").css("display") == "none") {
+        if ($("form:eq(" + index + ") input:hidden:eq(3)").val() != "1") {
+            var sid = $("form:eq(" + index + ") input:hidden:eq(2)").val();
+            var action = "/Script/Code/" + sid;
+            $.get(action, function (results) {
+                $(".list .editor textarea:eq(" + index + ")").val(results);
+                var pre_results = $('<pre class="brush: js;"></pre>');
+                pre_results.append(results);
+                $(".codeHigh").empty();
+                $(".codeHigh").append(pre_results);
+                SyntaxHighlighter.highlight();
+                $("form:eq(" + index + ") input:hidden:eq(3)").val(1);
+                $(".list .editor:eq(" + index + ")").slideDown(500);
+            });
+        }
+        else {
+            $(".list .editor:eq(" + index + ")").slideDown(500);
+        }
+    }
 });
 $(".list header .save").click(function () {
     var index = $(".list header .save").index(this);
@@ -60,6 +99,7 @@ $(".list header .save").click(function () {
     var code = $(".list .editor textarea").val();
     var token = $("form:eq(" + index + ") input:hidden:eq(1)").val();
     var sid = $("form:eq(" + index + ") input:hidden:eq(0)").val();
+    $("form:eq(" + index + ") input:hidden:eq(3)").val(0);
     $.post(action, { id: id, code: code, __RequestVerificationToken: token, sid: sid }, function (result) { location.href = result;});
 });
 /*********************************************************************************************************************/

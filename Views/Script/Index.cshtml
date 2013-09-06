@@ -9,6 +9,8 @@
 		{
 			<input type="hidden" name="sid" value="@m.sid" />
 			@Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@m.id" />
+            <input type="hidden" name="update" value="0" />
 			<header>
 				<h3>@if(m.locks){<span class="lock">(已锁定)</span>} @if (m.del){<span>(已删除)</span>}else { @m.name<span class="dates">@(m.dates.ToString(" yyyy年MM月dd日 hh:mm:ss"))</span>}</h3>
 				<div class="pager nomargin">
@@ -32,12 +34,12 @@
 					}
 				</div>
 			</header>
-			<pre class='pre brush: js'>@m.code</pre>
+            <div class="codeHigh"></div>
 			<div class="editor">
-				<textarea name="code">@m.code</textarea>
+				<textarea name="code" class="js"></textarea>
 			</div>
 			<div class="clear"></div>
-		}
+        }
 	</div>
 }
 @section Scripts{
@@ -49,4 +51,3 @@
 @section SyntaxHighlighter{
 	@Scripts.Render("~/bundles/SyntaxHighlighter")
 }
-<script type="text/javascript">SyntaxHighlighter.all();</script>

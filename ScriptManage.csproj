@@ -299,6 +299,7 @@
     <Content Include="Views\Site\Index.cshtml" />
     <Content Include="Views\Site\New.cshtml" />
     <Content Include="Views\Script\Index.cshtml" />
+    <Content Include="Views\Script\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
