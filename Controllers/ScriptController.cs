@@ -24,12 +24,7 @@ namespace ScriptManage.Controllers
             using (var db = new DatabaseContext())
             {
                 var scode = db.ScriptsCode.OrderByDescending(s => s.dates).FirstOrDefault(s => s.sid == id);
-                Response.ContentType = "text/html";
-                Response.ExpiresAbsolute = System.DateTime.Now.AddSeconds(-1);
-                Response.Expires = 0;
-                Response.AddHeader("pragma", "no-cache");
-                Response.CacheControl = "no-cache";
-                Response.Write(scode.code);
+                Model.ResponseAjaxHtml(scode.code);
             }
         }
         [HttpPost]
@@ -38,13 +33,14 @@ namespace ScriptManage.Controllers
         public void Update(int id)
         {
             string code = Request.Form["code"];
-            string sid = Request.Form["sid"];
+            int sid = int.Parse(Request.Form["sid"]);
+            string name = Request.Form["name"];
             if (ModelState.IsValid)
             {
-                ScriptModel.Update(id, code);
+                ScriptModel.Update(id, name, code);
             }
-            Response.ContentType = "text/html";
-            Response.Write(Url.Action("Index", "Script", new { id = sid }));
+
+            Model.ResponseAjaxHtml(Url.Action("Index", "Script", new { id = sid }));
         }
         public ActionResult Del(int id)
         {
@@ -92,6 +88,12 @@ namespace ScriptManage.Controllers
                     ViewBag.Message = "脚本创建成功";
             }
             return New();
+        }
+        public JsonResult History(int id)
+        {
+            var db = new DatabaseContext();
+            var query = db.ScriptsCode.Where(s => s.sid == id).Select(s => new { s.id, s.dates, s.code});
+            return Json(query, JsonRequestBehavior.AllowGet);
         }
     }
 }

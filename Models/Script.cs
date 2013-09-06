@@ -26,10 +26,16 @@ namespace ScriptManage.Models
                 return true;
             }
         }
-        public static void Update(int id,string code)
+        public static void Update(int id,string name,string code)
         {
             using (var db = new DatabaseContext())
             {
+                var scripts = db.Scripts.FirstOrDefault(s => s.id == id);
+                if (scripts != null)
+                {
+                    scripts.name = name;
+                    db.SaveChanges();
+                }
                 ScriptsCode scode = new ScriptsCode() { sid = id, code = code, dates = DateTime.Now };
                 db.ScriptsCode.Add(scode);
                 db.SaveChanges();

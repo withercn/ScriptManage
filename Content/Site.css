@@ -78,14 +78,15 @@ img { vertical-align:middle;border:0;}
         .list header h3 span.lock { color: #8e6300; }
         .list header h3 span.dates { color: #909090;font-size:11px;font-family:sans-serif; }
 .hide { display: none; }
-.codeHigh { display: none; }
+.codeHigh,codeList { display: none; }
 .nomargin { position: absolute; right: 10px; top:10px;}
 .nomargin button {  }
 div.editor { padding: 3px 3px 3px 3px; display:none;}
 div.editor textarea { width: 100%;min-height:300px;border:0;font-family:Consolas;font-size:14px;line-height:24px;}
 .module header { height: 38px; width: 100%; background: #F1F1F4; -webkit-border-top-left-radius: 5px; -webkit-border-top-right-radius: 5px; -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px;box-shadow: 0px 1px 3px rgba(0,0,0,0.5); -moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.5); -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.5); }
     .module header.delete h3 { color: red; }
-.module header h3 { display: block;  float: left;}
+.module header h3 { float: left;}
+    .module header h3 input { height:22px;line-height:20px;font-size:22px;font-family:'Microsoft YaHei';width:450px; }
 .module .contents { margin: 10px 20px; color: #666; }
     .module .contents .forms { line-height: 25px;font-family:'宋体';font-size:12px;}
         .module .contents .forms label { width: 100px; text-align: right; display:inline-block;color:#1d1313}

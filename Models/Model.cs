@@ -5,6 +5,7 @@ using System.Web.Optimization;
 using System.Text;
 using System.Security.Cryptography;
 using System.Web.Mvc;
+using System.Web;
 
 namespace ScriptManage
 {
@@ -30,6 +31,15 @@ namespace ScriptManage
         public static bool CheckDataSet(DataSet ds)
         {
             return ((ds != null) && ((ds.Tables.Count > 0) && (ds.Tables[0].Rows.Count > 0)));
+        }
+        public static void ResponseAjaxHtml(string context)
+        {
+            HttpContext.Current.Response.ContentType = "text/html";
+            HttpContext.Current.Response.ExpiresAbsolute = System.DateTime.Now.AddSeconds(-1);
+            HttpContext.Current.Response.Expires = 0;
+            HttpContext.Current.Response.AddHeader("pragma", "no-cache");
+            HttpContext.Current.Response.CacheControl = "no-cache";
+            HttpContext.Current.Response.Write(context);
         }
     }
 }

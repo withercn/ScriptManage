@@ -41,6 +41,8 @@ $(".selects").change(function () {
 });
 $(".list header .show").click(function () {
     var index = $(".list header .show").index(this);
+    $(".list:eq(" + index + ") header h3.hide").hide();
+    $(".list:eq(" + index + ") header h3:eq(0)").show();
     $(".list .editor:eq(" + index + ")").hide(500);
     if ($(".codeHigh:eq(" + index + ")").css("display") == "none") {
         if ($("form:eq(" + index + ") input:hidden:eq(3)").val() != "1") {
@@ -50,28 +52,46 @@ $(".list header .show").click(function () {
                 $(".list .editor textarea:eq(" + index + ")").val(results);
                 var pre_results = $('<pre class="brush: js;toolbar: false;"></pre>');
                 pre_results.append(results);
-                $(".codeHigh").empty();
-                $(".codeHigh").append(pre_results);
+                $(".codeHigh:eq(" + index + ")").empty();
+                $(".codeHigh:eq(" + index + ")").append(pre_results);
                 SyntaxHighlighter.highlight();
                 $("form:eq(" + index + ") input:hidden:eq(3)").val(1);
-                $(".codeHigh:eq(" + index + ")").slideDown(500);
+                $(".codeHigh:eq(" + index + ")").slideDown(800);
                 $(this).html("关闭");
             });
         }
         else {
-            $(".codeHigh:eq(" + index + ")").slideDown(500);
+            $(".codeHigh:eq(" + index + ")").slideDown(800);
             $(this).html("关闭");
         }
     }
     else {
-        $(".codeHigh:eq(" + index + ")").slideUp(500);
+        $(".codeHigh:eq(" + index + ")").slideUp(800);
         $(this).html("查看");
     }
 });
+$(".list header .history").click(function () {
+    var index = $(".list header .history").index(this);
+    var scriptid = $(this).attr("scriptid");
+    var action = "/Script/History/" + scriptid;
+    $.getJSON(action, function (data) {
+        $(".codeList:eq(" + index + ")").empty();
+        var dt = $("<dt></dt>");
+        $(data).each(function (index) {
+            var code = data[index];
+            dt.append($('<dl codeid="' + code.id + '">' + eval(code.dates.replace(/\//g,'')) + '</dl>'));
+            dt.append($('<dd></dd>'));
+        });
+        $(".codeList:eq(" + index + ")").append(dt);
+        $(".codeList:eq(" + index + ")").slideDown(800);
+    });
+});
 $(".list header .editCode").click(function () {
     var index = $(".list header .editCode").index(this);
-    $(".codeHigh:eq(" + index + ")").slideUp(500);
+    $(".codeHigh:eq(" + index + ")").slideUp(800);
     $(".list header .show:eq(" + index + ")").html("查看");
+    $(".list:eq(" + index + ") header h3").hide();
+    $(".list:eq(" + index + ") header h3.hide").show();
     if ($(".list .editor:eq(" + index + ")").css("display") == "none") {
         if ($("form:eq(" + index + ") input:hidden:eq(3)").val() != "1") {
             var sid = $("form:eq(" + index + ") input:hidden:eq(2)").val();
@@ -80,15 +100,15 @@ $(".list header .editCode").click(function () {
                 $(".list .editor textarea:eq(" + index + ")").val(results);
                 var pre_results = $('<pre class="brush: js;"></pre>');
                 pre_results.append(results);
-                $(".codeHigh").empty();
-                $(".codeHigh").append(pre_results);
+                $(".codeHigh:eq(" + index + ")").empty();
+                $(".codeHigh:eq(" + index + ")").append(pre_results);
                 SyntaxHighlighter.highlight();
                 $("form:eq(" + index + ") input:hidden:eq(3)").val(1);
-                $(".list .editor:eq(" + index + ")").slideDown(500);
+                $(".list .editor:eq(" + index + ")").slideDown(800);
             });
         }
         else {
-            $(".list .editor:eq(" + index + ")").slideDown(500);
+            $(".list .editor:eq(" + index + ")").slideDown(800);
         }
     }
 });
@@ -96,11 +116,12 @@ $(".list header .save").click(function () {
     var index = $(".list header .save").index(this);
     var id = $(this).attr("val");
     var action = "/Script/Update/" + id;
-    var code = $(".list .editor textarea").val();
+    var code = $(".list .editor textarea:eq(" + index + ")").val();
     var token = $("form:eq(" + index + ") input:hidden:eq(1)").val();
     var sid = $("form:eq(" + index + ") input:hidden:eq(0)").val();
+    var name = $("form:eq(" + index + ") input:text:eq(0)").val();
     $("form:eq(" + index + ") input:hidden:eq(3)").val(0);
-    $.post(action, { id: id, code: code, __RequestVerificationToken: token, sid: sid }, function (result) { location.href = result;});
+    $.post(action, { name: name, code: code, __RequestVerificationToken: token, sid: sid }, function (result) { location.href = result; });
 });
 /*********************************************************************************************************************/
 /*让TextArea支持Tab键*/
