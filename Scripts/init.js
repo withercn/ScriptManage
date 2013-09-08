@@ -1,4 +1,5 @@
-﻿$(".aside h3").append("<a class=\"toggleLink\">Hide</a>");
+﻿var delay = 800;
+$(".aside h3").append("<a class=\"toggleLink\">Hide</a>");
 $(".toggleLink").click(function () {
     if ($(this).html() == "Hide") {
         $(this).text("Show");
@@ -39,88 +40,106 @@ $(".selects").change(function () {
         $("#code").removeClass();
     $("#code").focus();
 });
+function divInit(obj) {
+    $(".codeContent>div", obj).slideUp(delay);
+    $("header h3.hide", obj).hide();
+    $("header h3:eq(0)", obj).show();
+}
 $(".list header .show").click(function () {
-    var index = $(".list header .show").index(this);
-    $(".list:eq(" + index + ") header h3.hide").hide();
-    $(".list:eq(" + index + ") header h3:eq(0)").show();
-    $(".list .editor:eq(" + index + ")").hide(500);
-    if ($(".codeHigh:eq(" + index + ")").css("display") == "none") {
-        if ($("form:eq(" + index + ") input:hidden:eq(3)").val() != "1") {
-            var sid = $("form:eq(" + index + ") input:hidden:eq(2)").val();
+    var block = $(this).parent().parent().parent();
+    divInit(block);
+    if ($(".codeHigh", block).css("display") == "none") {
+        if ($("input[name='update']", block).val() != "1") {
+            var sid = $("input[name='id']", block).val();
             var action = "/Script/Code/" + sid;
             $.get(action, function (results) {
-                $(".list .editor textarea:eq(" + index + ")").val(results);
+                $("textarea", block).val(results);
                 var pre_results = $('<pre class="brush: js;toolbar: false;"></pre>');
                 pre_results.append(results);
-                $(".codeHigh:eq(" + index + ")").empty();
-                $(".codeHigh:eq(" + index + ")").append(pre_results);
+                $(".codeHigh", block).empty();
+                $(".codeHigh", block).append(pre_results);
                 SyntaxHighlighter.highlight();
-                $("form:eq(" + index + ") input:hidden:eq(3)").val(1);
-                $(".codeHigh:eq(" + index + ")").slideDown(800);
-                $(this).html("关闭");
+                $("input[name='update']", block).val(1);;
+                $(".codeHigh", block).slideDown(delay);
             });
         }
-        else {
-            $(".codeHigh:eq(" + index + ")").slideDown(800);
-            $(this).html("关闭");
-        }
+        else
+            $(".codeHigh", block).slideDown(delay);
     }
-    else {
-        $(".codeHigh:eq(" + index + ")").slideUp(800);
-        $(this).html("查看");
-    }
+    else 
+        $(".codeHigh", block).slideUp(delay);
 });
 $(".list header .history").click(function () {
-    var index = $(".list header .history").index(this);
-    var scriptid = $(this).attr("scriptid");
-    var action = "/Script/History/" + scriptid;
-    $.getJSON(action, function (data) {
-        $(".codeList:eq(" + index + ")").empty();
-        var dt = $("<dt></dt>");
-        $(data).each(function (index) {
-            var code = data[index];
-            dt.append($('<dl codeid="' + code.id + '">' + eval(code.dates.replace(/\//g,'')) + '</dl>'));
-            dt.append($('<dd></dd>'));
+    var block = $(this).parent().parent().parent();
+    divInit(block);
+    if ($(".codeList", block).css("display") == "none") {
+        var scriptid = $(this).attr("scriptid");
+        var action = "/Script/History/" + scriptid;
+        $.getJSON(action, function (data) {
+            $(".codeList", block).empty();
+            var dt = $("<dt></dt>");
+            $(data).each(function (index) {
+                var code = data[index];
+                var dl = $('<dl codeid="' + code.id + '" class="pager">修改时间：' + code.dates + '</dl>');
+                var link = $("<a>查看详细</a>");
+                link.click(function () {
+                    var dd = $(this).parent().parent().next();
+                    if (dd.css("display") == "none")
+                        dd.slideDown(delay);
+                    else
+                        dd.slideUp(delay);
+                });
+                var undo = $("<a>还原</a>");
+                undo.click(function () { });
+                var div = $("<div></div>");
+                div.append(link).append(undo);
+                dl.append(div);
+                dt.append(dl).append($('<dd><pre class="brush:js;toolbar: false;">' + code.code + '</pre></dd>'));
+            });
+            $(".codeList", block).append(dt).slideDown(delay);
+            SyntaxHighlighter.highlight();
         });
-        $(".codeList:eq(" + index + ")").append(dt);
-        $(".codeList:eq(" + index + ")").slideDown(800);
-    });
+    }
+    else
+        $(".codeList").slideUp(delay);
 });
 $(".list header .editCode").click(function () {
-    var index = $(".list header .editCode").index(this);
-    $(".codeHigh:eq(" + index + ")").slideUp(800);
-    $(".list header .show:eq(" + index + ")").html("查看");
-    $(".list:eq(" + index + ") header h3").hide();
-    $(".list:eq(" + index + ") header h3.hide").show();
-    if ($(".list .editor:eq(" + index + ")").css("display") == "none") {
-        if ($("form:eq(" + index + ") input:hidden:eq(3)").val() != "1") {
-            var sid = $("form:eq(" + index + ") input:hidden:eq(2)").val();
+    var block = $(this).parent().parent().parent();
+    $(".codeContent div", block).slideUp(delay);
+    $("header .show", block).html("查看");
+    $("header h3", block).hide();
+    $("header h3.hide", block).show();
+    if ($(".editor", block).css("display") == "none") {
+        if ($("input[name='update']", block).val() != "1") {
+            var sid = $("input[name='id']", block).val();
             var action = "/Script/Code/" + sid;
             $.get(action, function (results) {
-                $(".list .editor textarea:eq(" + index + ")").val(results);
-                var pre_results = $('<pre class="brush: js;"></pre>');
+                $(".editor textarea", block).val(results);
+                var pre_results = $('<pre class="brush: js;toolbar: false;"></pre>');
                 pre_results.append(results);
-                $(".codeHigh:eq(" + index + ")").empty();
-                $(".codeHigh:eq(" + index + ")").append(pre_results);
+                $(".codeHigh", block).empty();
+                $(".codeHigh", block).append(pre_results);
                 SyntaxHighlighter.highlight();
-                $("form:eq(" + index + ") input:hidden:eq(3)").val(1);
-                $(".list .editor:eq(" + index + ")").slideDown(800);
+                $("input[name='update']", block).val(1);
+                $(".editor", block).slideDown(delay);
             });
         }
-        else {
-            $(".list .editor:eq(" + index + ")").slideDown(800);
-        }
+        else
+            $(".editor", block).slideDown(delay);
     }
+    else
+        $(".editor", block).slideUp(delay);
 });
 $(".list header .save").click(function () {
-    var index = $(".list header .save").index(this);
+    var block = $(this).parent().parent().parent();
+    divInit(block);
     var id = $(this).attr("val");
     var action = "/Script/Update/" + id;
-    var code = $(".list .editor textarea:eq(" + index + ")").val();
-    var token = $("form:eq(" + index + ") input:hidden:eq(1)").val();
-    var sid = $("form:eq(" + index + ") input:hidden:eq(0)").val();
-    var name = $("form:eq(" + index + ") input:text:eq(0)").val();
-    $("form:eq(" + index + ") input:hidden:eq(3)").val(0);
+    var code = $(".editor textarea", block).val();
+    var token = $("input[name='__RequestVerificationToken']", block).val();
+    var sid = $("input[name='sid']", block).val();
+    var name = $("input[name='name']", block).val();
+    $("input[name='update']", block).val(0);
     $.post(action, { name: name, code: code, __RequestVerificationToken: token, sid: sid }, function (result) { location.href = result; });
 });
 /*********************************************************************************************************************/

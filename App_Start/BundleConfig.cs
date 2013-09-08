@@ -15,9 +15,10 @@ namespace ScriptManage
             bundles.Add(new ScriptBundle("~/bundles/jquerytable").Include("~/Scripts/jquery.tablesorter.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include("~/Scripts/jquery-ui-{version}.js"));
             bundles.Add(new ScriptBundle("~/bundles/SyntaxHighlighter").Include(
-                        "~/Scripts/SyntaxHighlighter/shCore.js", 
+                        "~/Scripts/SyntaxHighlighter/shCore.js",
                         "~/Scripts/SyntaxHighlighter/shAutoloader.js",
-                        "~/Scripts/SyntaxHighlighter/shBrushJScript.js"));
+                        "~/Scripts/SyntaxHighlighter/shBrushJScript.js",
+                        "~/Scripts/SyntaxHighlighter/shBrushCss.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));

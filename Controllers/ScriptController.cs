@@ -89,11 +89,13 @@ namespace ScriptManage.Controllers
             }
             return New();
         }
+        [OutputCache(Duration=0)]
         public JsonResult History(int id)
         {
             var db = new DatabaseContext();
-            var query = db.ScriptsCode.Where(s => s.sid == id).Select(s => new { s.id, s.dates, s.code});
-            return Json(query, JsonRequestBehavior.AllowGet);
+            var query = db.ScriptsCode.Where(s => s.sid == id).Select(s => new { s.id, s.dates, s.code }).OrderByDescending(s => s.dates);
+            return Model.Json(query);
+            //return Json(query, JsonRequestBehavior.AllowGet);
         }
     }
 }

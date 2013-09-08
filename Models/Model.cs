@@ -41,5 +41,13 @@ namespace ScriptManage
             HttpContext.Current.Response.CacheControl = "no-cache";
             HttpContext.Current.Response.Write(context);
         }
+        public static JsonResult Json(object data)
+        {
+            return new Models.JsonResultEx
+            {
+                Data = data,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
     }
 }

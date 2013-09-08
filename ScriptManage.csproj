@@ -137,6 +137,7 @@
     </Compile>
     <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\HtmlPager.cs" />
+    <Compile Include="Models\JsonResultEx.cs" />
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\Script.cs" />
     <Compile Include="Models\Site.cs" />
