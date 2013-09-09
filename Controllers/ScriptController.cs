@@ -95,7 +95,17 @@ namespace ScriptManage.Controllers
             var db = new DatabaseContext();
             var query = db.ScriptsCode.Where(s => s.sid == id).Select(s => new { s.id, s.dates, s.code }).OrderByDescending(s => s.dates);
             return Model.Json(query);
-            //return Json(query, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Undo(int id)
+        {
+            ScriptModel.Undo(id);
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        public ActionResult Edit(int id)
+        {
+            
+            //var code = db.Database.ExecuteSqlCommand(string.Format("select top 1 c.id,code,c.dates,[name] from ScriptsCode c inner join [scripts] s on c.sid=s.id  where s.id={0} and s.del=0 order by c.dates desc", id));
+            return View(ScriptModel.GetCode(id));
         }
     }
 }

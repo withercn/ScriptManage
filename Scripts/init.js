@@ -89,7 +89,7 @@ $(".list header .history").click(function () {
                     else
                         dd.slideUp(delay);
                 });
-                var undo = $("<a>还原</a>");
+                var undo = $('<a href="/Script/Undo/' + code.id + '">还原</a>');
                 undo.click(function () { });
                 var div = $("<div></div>");
                 div.append(link).append(undo);
@@ -105,8 +105,7 @@ $(".list header .history").click(function () {
 });
 $(".list header .editCode").click(function () {
     var block = $(this).parent().parent().parent();
-    $(".codeContent div", block).slideUp(delay);
-    $("header .show", block).html("查看");
+    $(".codeContent>div", block).slideUp(delay);
     $("header h3", block).hide();
     $("header h3.hide", block).show();
     if ($(".editor", block).css("display") == "none") {
@@ -127,8 +126,11 @@ $(".list header .editCode").click(function () {
         else
             $(".editor", block).slideDown(delay);
     }
-    else
+    else {
+        $("header h3", block).show();
+        $("header h3.hide", block).hide();
         $(".editor", block).slideUp(delay);
+    }
 });
 $(".list header .save").click(function () {
     var block = $(this).parent().parent().parent();

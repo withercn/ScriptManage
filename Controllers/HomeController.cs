@@ -21,21 +21,6 @@ namespace ScriptManage.Controllers
             return View();
         }
         [AllowAnonymous]
-        public ActionResult Site()
-        {
-            using (var db = new DatabaseContext())
-            {
-                db.Users.SqlQuery("delete sites");
-                db.SaveChanges();
-                for (var i = 0; i < 100; i++)
-                {
-                    db.Sites.Add(new Sites() { domain = "www.sz16.cn", name = "深圳医疗网" });
-                }
-                db.SaveChanges();
-            }
-            return RedirectToAction("Index", "Home");
-        }
-        [AllowAnonymous]
         public ActionResult I()
         {
             using (var db = new DatabaseContext())

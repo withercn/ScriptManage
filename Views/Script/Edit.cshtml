@@ -1,9 +1,9 @@
 ﻿@{
-	ViewBag.Title = "脚本管理";
+	ViewBag.Title = "代码修改";
 	Layout = "~/Views/Shared/_aside.cshtml";
 }
 @foreach (var m in Model)
-{
+{ 
 	<div class="module list">
 		@using (Html.BeginForm("Update", "Script", new { id = m.id }))
 		{
@@ -12,39 +12,27 @@
 			<input type="hidden" name="id" value="@m.id" />
 			<input type="hidden" name="update" value="0" />
 			<header>
-				<h3>@if(m.locks){<span class="lock">(已锁定)</span>} @if (m.del){<span>(已删除)</span>}else { @m.name<span class="dates">@(m.dates.ToString(" yyyy年MM月dd日 hh:mm:ss"))</span>}</h3>
+				<h3>@if (m.locks){<span class="lock">(已锁定)</span>} @if (m.del){<span>(已删除)</span>} @m.name <span class="dates">@(m.dates.ToString(" yyyy年MM月dd日 hh:mm:ss"))</span></h3>
 				<h3 class="hide"><input type="text" value="@m.name" name="name" /></h3>
 				<div class="pager nomargin">
-					<a class="show">查看</a>
-					<a class="history" scriptid="@m.id">历史记录</a>
-					@if (!m.del && !m.locks)
-					{ 
-					<a class="editCode" href="@Url.Action("Edit", "Script", new { id = m.id })" target="_Edit">修改</a>
 					<a class="save" val="@m.id">保存</a>
-					}
 					@if (m.del)
 					{<a href="@Url.Action("Del", "Script", new { id = m.id })">撤消删除</a> }
 					else
-					{
-					<a href="@Url.Action("Del", "Script", new { id = m.id })">删除</a>
-					}
+					{<a href="@Url.Action("Del", "Script", new { id = m.id })">删除</a>}
 					@if (m.locks)
 					{<a href="@Url.Action("Lock", "Script", new { id = m.id })">解除锁定</a> }
-					else { 
-					<a href="@Url.Action("Lock", "Script", new { id = m.id })">锁定</a>
-					
-					}
+					else
+					{<a href="@Url.Action("Lock", "Script", new { id = m.id })">锁定</a>}
 				</div>
 			</header>
 			<div class="codeContent">
-				<div class="codeList block"></div>
-				<div class="codeHigh block"></div>
-				<div class="editor block">
-					<textarea name="code" class="js"></textarea>
+				<div class="editor" style="display: block;">
+					<textarea name="code" class="js">@m.code</textarea>
 				</div>
 			</div>
 			<div class="clear"></div>
-		}
+	}
 	</div>
 }
 @section Scripts{
