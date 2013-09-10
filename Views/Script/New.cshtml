@@ -14,8 +14,9 @@
             <h3>@Html.LabelFor(s=>s.name)
                 @Html.TextBoxFor(s => s.name, new { autofocus = "autofocus", style = "width:400px;" })</h3>
             <div class="pager middle">
-                @Html.LabelFor(s => s.siteid)
-                @Html.DropDownListFor(s => s.siteid, (SelectList)site, new { disabled = "disabled" })
+                @*@Html.LabelFor(s => s.siteid)*@
+                @*@Html.DropDownListFor(s => s.siteid, (SelectList)site, new { disabled = "disabled" })*@
+                @Html.HiddenFor(s => s.siteid)
                 @Html.LabelFor(s => s.type)
                 @Html.DropDownListFor(s => s.type, (SelectList)type, new { @class = "selects"})
             </div>

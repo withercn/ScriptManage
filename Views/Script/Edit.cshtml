@@ -15,8 +15,9 @@
 			<h3>@if (Model.locks){<span class="lock">(已锁定)</span>} @if (Model.del){<span>(已删除)</span>}<label>@Model.name</label><span class="dates">@(Model.dates.ToString(" yyyy年MM月dd日 hh:mm:ss"))</span></h3>
 			<h3 class="hide">@Html.TextBoxFor(s => s.name, new { autofocus = "autofocus", style="width:300px;" })</h3>
 			<div class="pager middle">
-				@Html.LabelFor(s => s.siteid)
-				@Html.DropDownListFor(s => s.siteid, (SelectList)site, new { disabled = "disabled" })
+				@*@Html.LabelFor(s => s.siteid)
+				@Html.DropDownListFor(s => s.siteid, (SelectList)site, new { disabled = "disabled" })*@
+                @Html.HiddenFor(s => s.siteid)
 				@Html.LabelFor(s => s.type)
 				@Html.DropDownListFor(s => s.type, (SelectList)type, new { @class = "selects", selectedValue=Model.type })
 			</div>

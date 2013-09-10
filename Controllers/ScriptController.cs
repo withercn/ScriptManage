@@ -47,10 +47,10 @@ namespace ScriptManage.Controllers
         {
             using (var db = new DatabaseContext())
             {
-                ViewBag.Site = new SelectList(db.Sites.Select(s => new { s.id, s.domain }).ToList(), "id", "domain", id);
+                //ViewBag.Site = new SelectList(db.Sites.Select(s => new { s.id, s.domain }).ToList(), "id", "domain", id);
                 ViewBag.Type = new SelectList(db.CodeTypes.Select(s => new { s.id, s.name }).ToList(), "id", "name");   
             }
-            return View();
+            return View(new NewScriptModel() { siteid = id });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
