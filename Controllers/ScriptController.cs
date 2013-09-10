@@ -27,24 +27,15 @@ namespace ScriptManage.Controllers
                 Model.ResponseAjaxHtml(scode.code);
             }
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [ValidateInput(false)]
-        public void Update(int id)
-        {
-            string code = Request.Form["code"];
-            int sid = int.Parse(Request.Form["sid"]);
-            string name = Request.Form["name"];
-            if (ModelState.IsValid)
-            {
-                ScriptModel.Update(id, name, code);
-            }
-
-            Model.ResponseAjaxHtml(Url.Action("Index", "Script", new { id = sid }));
-        }
         public ActionResult Del(int id)
         {
             ScriptModel.Del(id);
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        [Authorize(Roles="系统管理员")]
+        public ActionResult Remove(int id)
+        {
+            ScriptModel.Remove(id);
             return Redirect(Request.UrlReferrer.ToString());
         }
         public ActionResult Lock(int id)
@@ -52,18 +43,13 @@ namespace ScriptManage.Controllers
             ScriptModel.Lock(id);
             return Redirect(Request.UrlReferrer.ToString());
         }
-        public ActionResult New()
+        public ActionResult New(int id)
         {
             using (var db = new DatabaseContext())
             {
-                SelectList list = new SelectList(db.Sites.Select(s => new { s.id, s.domain }).ToList(), "id", "domain");
-                ViewBag.Site = list;
+                ViewBag.Site = new SelectList(db.Sites.Select(s => new { s.id, s.domain }).ToList(), "id", "domain", id);
+                ViewBag.Type = new SelectList(db.CodeTypes.Select(s => new { s.id, s.name }).ToList(), "id", "name");   
             }
-            List<SelectListItem> nList = new List<SelectListItem>();
-            nList.Add(new SelectListItem() { Text = "本地代码块", Value = "0" });
-            nList.Add(new SelectListItem() { Text = "远程脚本文件", Value = "1" });
-            SelectList sList = new SelectList(nList.ToList(), "Value", "Text");
-            ViewBag.Type = sList;
             return View();
         }
         [HttpPost]
@@ -87,7 +73,7 @@ namespace ScriptManage.Controllers
                 else
                     ViewBag.Message = "脚本创建成功";
             }
-            return New();
+            return New(model.sid);
         }
         [OutputCache(Duration=0)]
         public JsonResult History(int id)
@@ -103,9 +89,28 @@ namespace ScriptManage.Controllers
         }
         public ActionResult Edit(int id)
         {
-            
-            //var code = db.Database.ExecuteSqlCommand(string.Format("select top 1 c.id,code,c.dates,[name] from ScriptsCode c inner join [scripts] s on c.sid=s.id  where s.id={0} and s.del=0 order by c.dates desc", id));
-            return View(ScriptModel.GetCode(id));
+            CodeModel cModel = ScriptModel.GetCode(id);
+            using (var db = new DatabaseContext())
+            {
+                ViewBag.Type = new SelectList(db.CodeTypes.Select(s => new { s.id, s.name }).ToList(), "id", "name", cModel.type);
+                ViewBag.Site = new SelectList(db.Sites.Select(s => new { s.id, s.domain }).ToList(), "id", "domain", cModel.siteid);
+            }
+            return View(cModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult Edit(CodeModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!ScriptModel.Update(model.sid, model.name, model.code))
+                    ModelState.AddModelError("", "指定的脚本名称已经存在");
+                else
+                    ViewBag.Message = "脚本创建成功";
+            }
+            ViewBag.Script = string.Format("<script>setTimeout(\"location.href = '{0}'\", 3000);</script>", Url.Action("Index", "Script", new { id = model.siteid }));
+            return Edit(model.sid);
         }
     }
 }

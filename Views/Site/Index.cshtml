@@ -29,8 +29,8 @@
 					<td>@m.name</td>
 					<td class="pager">
 						<a href="@Url.Action("Del", "Site", new { id = m.id })">删除</a>
-						<a href="@Url.Action("Detail", "Site", new { id = m.id })">详细</a>
 						<a href="@Url.Action("Index", "Script", new { id = m.id })">脚本</a>
+						<a href="@Url.Action("New", "Script", new { id = m.id })">新建脚本</a>
 					</td>
 					</tr>
 				}

@@ -7,20 +7,17 @@
 	<div class="module list">
 		@using (Html.BeginForm("Update", "Script", new { id = m.id }))
 		{
-			<input type="hidden" name="sid" value="@m.sid" />
 			@Html.AntiForgeryToken()
 			<input type="hidden" name="id" value="@m.id" />
+			<input type="hidden" name="sid" value="@m.sid" />
 			<input type="hidden" name="update" value="0" />
 			<header>
 				<h3>@if(m.locks){<span class="lock">(已锁定)</span>} @if (m.del){<span>(已删除)</span>}else { @m.name<span class="dates">@(m.dates.ToString(" yyyy年MM月dd日 hh:mm:ss"))</span>}</h3>
-				<h3 class="hide"><input type="text" value="@m.name" name="name" /></h3>
 				<div class="pager nomargin">
-					<a class="show">查看</a>
 					<a class="history" scriptid="@m.id">历史记录</a>
 					@if (!m.del && !m.locks)
 					{ 
-					<a class="editCode" href="@Url.Action("Edit", "Script", new { id = m.id })" target="_Edit">修改</a>
-					<a class="save" val="@m.id">保存</a>
+					<a class="editCode" href="@Url.Action("Edit", "Script", new { id = m.id })">修改</a>
 					}
 					@if (m.del)
 					{<a href="@Url.Action("Del", "Script", new { id = m.id })">撤消删除</a> }

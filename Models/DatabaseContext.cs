@@ -15,6 +15,7 @@ namespace ScriptManage.Models
         public DbSet<Scripts> Scripts { get; set; }
         public DbSet<ScriptsCode> ScriptsCode { get; set; }
         public DbSet<Logs> Logs { get; set; }
+        public DbSet<CodeTypes> CodeTypes { get; set; }
     }
     [Table("Users")]
     public class Users
@@ -74,5 +75,13 @@ namespace ScriptManage.Models
         public string code { get; set; }
         public DateTime dates { get; set; }
         public int sid { get; set; }
+    }
+    [Table("CodeType")]
+    public class CodeTypes
+    {
+        [Key]
+        [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
+        public int id { get; set; }
+        public string name { get; set; }
     }
 }

@@ -17,7 +17,9 @@ $(function () {
     $(".content").css("min-height", winHeight);
     if ($(".tablesorter").length > 0)
         $(".tablesorter").tablesorter({ widthFixed: true, widgets: ['zebra'] });
+    $(".selects").val($(".selects").attr("selectedValue"));
 });
+
 $(".tablesorter tbody tr").click(function () {
     if ($("input:checkbox", this).attr("checked") != undefined)
         $("input:checkbox", this).removeAttr("checked");
@@ -34,40 +36,29 @@ $("span.none").click(function () {
     });
 });
 $(".selects").change(function () {
-    if ($(this).val() == 1)
-        $("#code").addClass("code");
-    else
-        $("#code").removeClass();
+    $("#code").removeClass();
+    $("#code").addClass("code" + $(this).val());
     $("#code").focus();
+    $("#code").select();
 });
 function divInit(obj) {
     $(".codeContent>div", obj).slideUp(delay);
     $("header h3.hide", obj).hide();
     $("header h3:eq(0)", obj).show();
 }
-$(".list header .show").click(function () {
-    var block = $(this).parent().parent().parent();
-    divInit(block);
-    if ($(".codeHigh", block).css("display") == "none") {
-        if ($("input[name='update']", block).val() != "1") {
-            var sid = $("input[name='id']", block).val();
-            var action = "/Script/Code/" + sid;
-            $.get(action, function (results) {
-                $("textarea", block).val(results);
-                var pre_results = $('<pre class="brush: js;toolbar: false;"></pre>');
-                pre_results.append(results);
-                $(".codeHigh", block).empty();
-                $(".codeHigh", block).append(pre_results);
-                SyntaxHighlighter.highlight();
-                $("input[name='update']", block).val(1);;
-                $(".codeHigh", block).slideDown(delay);
-            });
-        }
-        else
-            $(".codeHigh", block).slideDown(delay);
+$(".list header h3").click(function () {
+    if (this.className != 'hide') {
+        $(this).hide();
+        $(this).next().show();
+        var hide = $(".list header h3.hide");
+        $("input[name='name']", hide).focus();
+        $("input[name='name']", hide).select();
     }
-    else 
-        $(".codeHigh", block).slideUp(delay);
+});
+$(".list header h3.hide input:text").blur(function () {
+    $(this).parent().hide();
+    $(this).parent().prev().show();
+    $(".list header h3 label").html(this.value);
 });
 $(".list header .history").click(function () {
     var block = $(this).parent().parent().parent();
@@ -81,7 +72,7 @@ $(".list header .history").click(function () {
             $(data).each(function (index) {
                 var code = data[index];
                 var dl = $('<dl codeid="' + code.id + '" class="pager">修改时间：' + code.dates + '</dl>');
-                var link = $("<a>查看详细</a>");
+                var link = $("<a>代码</a>");
                 link.click(function () {
                     var dd = $(this).parent().parent().next();
                     if (dd.css("display") == "none")
@@ -90,9 +81,9 @@ $(".list header .history").click(function () {
                         dd.slideUp(delay);
                 });
                 var undo = $('<a href="/Script/Undo/' + code.id + '">还原</a>');
-                undo.click(function () { });
+                var remove = $('<a href="/Script/Remove/' + code.id + '">删除</a>');
                 var div = $("<div></div>");
-                div.append(link).append(undo);
+                div.append(link).append(undo).append(remove);
                 dl.append(div);
                 dt.append(dl).append($('<dd><pre class="brush:js;toolbar: false;">' + code.code + '</pre></dd>'));
             });
@@ -101,36 +92,7 @@ $(".list header .history").click(function () {
         });
     }
     else
-        $(".codeList").slideUp(delay);
-});
-$(".list header .editCode").click(function () {
-    var block = $(this).parent().parent().parent();
-    $(".codeContent>div", block).slideUp(delay);
-    $("header h3", block).hide();
-    $("header h3.hide", block).show();
-    if ($(".editor", block).css("display") == "none") {
-        if ($("input[name='update']", block).val() != "1") {
-            var sid = $("input[name='id']", block).val();
-            var action = "/Script/Code/" + sid;
-            $.get(action, function (results) {
-                $(".editor textarea", block).val(results);
-                var pre_results = $('<pre class="brush: js;toolbar: false;"></pre>');
-                pre_results.append(results);
-                $(".codeHigh", block).empty();
-                $(".codeHigh", block).append(pre_results);
-                SyntaxHighlighter.highlight();
-                $("input[name='update']", block).val(1);
-                $(".editor", block).slideDown(delay);
-            });
-        }
-        else
-            $(".editor", block).slideDown(delay);
-    }
-    else {
-        $("header h3", block).show();
-        $("header h3.hide", block).hide();
-        $(".editor", block).slideUp(delay);
-    }
+        $(".codeList", block).slideUp(delay);
 });
 $(".list header .save").click(function () {
     var block = $(this).parent().parent().parent();
@@ -142,8 +104,11 @@ $(".list header .save").click(function () {
     var sid = $("input[name='sid']", block).val();
     var name = $("input[name='name']", block).val();
     $("input[name='update']", block).val(0);
-    $.post(action, { name: name, code: code, __RequestVerificationToken: token, sid: sid }, function (result) { location.href = result; });
+    $.post(action, { name: name, code: code, __RequestVerificationToken: token, sid: sid }, function (result) { window.parent.location.reload(); location.href = result; });
 });
+function delay(time, url) {
+    setTimeout("location.href = " + url, time);
+}
 /*********************************************************************************************************************/
 /*让TextArea支持Tab键*/
 /*********************************************************************************************************************/

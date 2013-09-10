@@ -1,46 +1,60 @@
-﻿@{
+﻿@model ScriptManage.Models.CodeModel
+@{
 	ViewBag.Title = "代码修改";
 	Layout = "~/Views/Shared/_aside.cshtml";
+	var site = ViewBag.Site;
+	var type = ViewBag.Type;
 }
-@foreach (var m in Model)
-{ 
-	<div class="module list">
-		@using (Html.BeginForm("Update", "Script", new { id = m.id }))
-		{
-			<input type="hidden" name="sid" value="@m.sid" />
-			@Html.AntiForgeryToken()
-			<input type="hidden" name="id" value="@m.id" />
-			<input type="hidden" name="update" value="0" />
-			<header>
-				<h3>@if (m.locks){<span class="lock">(已锁定)</span>} @if (m.del){<span>(已删除)</span>} @m.name <span class="dates">@(m.dates.ToString(" yyyy年MM月dd日 hh:mm:ss"))</span></h3>
-				<h3 class="hide"><input type="text" value="@m.name" name="name" /></h3>
-				<div class="pager nomargin">
-					<a class="save" val="@m.id">保存</a>
-					@if (m.del)
-					{<a href="@Url.Action("Del", "Script", new { id = m.id })">撤消删除</a> }
-					else
-					{<a href="@Url.Action("Del", "Script", new { id = m.id })">删除</a>}
-					@if (m.locks)
-					{<a href="@Url.Action("Lock", "Script", new { id = m.id })">解除锁定</a> }
-					else
-					{<a href="@Url.Action("Lock", "Script", new { id = m.id })">锁定</a>}
-				</div>
-			</header>
-			<div class="codeContent">
-				<div class="editor" style="display: block;">
-					<textarea name="code" class="js">@m.code</textarea>
-				</div>
+<div class="module list">
+	@using (Html.BeginForm("Edit", "Script"))
+	{
+		@Html.HiddenFor(s => s.sid)
+		@Html.AntiForgeryToken()
+		@Html.HiddenFor(s => s.id)
+		<input type="hidden" name="update" value="0" />
+		<header>
+			<h3>@if (Model.locks){<span class="lock">(已锁定)</span>} @if (Model.del){<span>(已删除)</span>}<label>@Model.name</label><span class="dates">@(Model.dates.ToString(" yyyy年MM月dd日 hh:mm:ss"))</span></h3>
+			<h3 class="hide">@Html.TextBoxFor(s => s.name, new { autofocus = "autofocus", style="width:300px;" })</h3>
+			<div class="pager middle">
+				@Html.LabelFor(s => s.sid)
+				@Html.DropDownListFor(s => s.siteid, (SelectList)site)
+				@Html.LabelFor(s => s.type)
+				@Html.DropDownListFor(s => s.type, (SelectList)type, new { @class = "selects", selectedValue=Model.type })
 			</div>
-			<div class="clear"></div>
+			<div class="pager nomargin" style="top:0px;">
+				<button type="submit">保存</button>
+				@if (Model.del)
+				{<a href="@Url.Action("Del", "Script", new { id = Model.sid })">撤消删除</a> }
+				else
+				{<a href="@Url.Action("Del", "Script", new { id = Model.sid })">删除</a>}
+				@if (Model.locks)
+				{<a href="@Url.Action("Lock", "Script", new { id = Model.sid })">解除锁定</a> }
+				else
+				{<a href="@Url.Action("Lock", "Script", new { id = Model.sid })">锁定</a>}
+			</div>
+		</header>
+		<div class="editor" style="display: block;">
+			@Html.TextAreaFor(s => s.code, new { @Text = Model.code, @class = "code" + Model.type })
+		</div>
+		<div class="message">
+			<span class="red">
+			@Html.ValidationMessageFor(s => s.name)
+			@Html.ValidationMessageFor(s => s.sid)
+			@Html.ValidationMessageFor(s => s.type)
+			@Html.ValidationMessageFor(s => s.code)
+			</span>
+			@Html.ValidationSummary(true)
+			@ViewBag.Message
+		</div>
+		<div class="clear"></div>
 	}
-	</div>
-}
-@section Scripts{
-	@Scripts.Render("~/bundles/jquerytable")
-}
+</div>
 @section Styles{
 	@Styles.Render("~/Content/SyntaxHighlighter")
 }
 @section SyntaxHighlighter{
 	@Scripts.Render("~/bundles/SyntaxHighlighter")
+}
+@section Scripts{
+	@Html.Raw(ViewBag.Script)
 }
