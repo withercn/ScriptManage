@@ -128,7 +128,7 @@ namespace ScriptManage.Models
 
         [Required]
         [Display(Name = "站点域名")]
-        public int sid { get; set; }
+        public int siteid { get; set; }
 
         [Required]
         [Display(Name = "脚本类型")]

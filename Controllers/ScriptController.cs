@@ -62,7 +62,7 @@ namespace ScriptManage.Controllers
                 Scripts script = new Scripts()
                 {
                     name = model.name,
-                    sid = model.sid,
+                    sid = model.siteid,
                     type = model.type,
                     locks = false,
                     del = false,
@@ -72,8 +72,9 @@ namespace ScriptManage.Controllers
                     ModelState.AddModelError("", "指定的脚本名称已经存在");
                 else
                     ViewBag.Message = "脚本创建成功";
+                Model.ScriptRedirect(ViewBag, Url.Action("Index", "Script", new { id = model.siteid }));
             }
-            return New(model.sid);
+            return New(model.siteid);
         }
         [OutputCache(Duration=0)]
         public JsonResult History(int id)

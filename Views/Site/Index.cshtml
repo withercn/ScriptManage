@@ -5,7 +5,7 @@
 	ScriptManage.Models.HtmlPager pager = ViewBag.Pager;
 }
 
-<div class="module user">
+<div class="module site">
 	<header><h3>网站列表</h3></header>
 	<div class="contents">
 		@using (Html.BeginForm("Del", "Site"))
@@ -13,9 +13,9 @@
 			@Html.AntiForgeryToken();
 		<table class="tablesorter" cellspacing="0">
 			<thead><tr>
-				<th class="header"><span class="all">全选</span> / <span class="none">反选</span></th>
-				<th class="header">编号 <img src="~/Images/bg.gif" /></th>
-				<th class="header">域名 <img src="~/Images/bg.gif" /></th>
+				<th class="header nowrap"><span class="all">全选</span> / <span class="none">反选</span></th>
+				<th class="header nowrap">编号 <img src="~/Images/bg.gif" /></th>
+				<th class="header nowrap">域名 <img src="~/Images/bg.gif" /></th>
 				<th class="header">网站名称</th>
 				<th class="header">操作</th>
 			</tr></thead>
@@ -31,6 +31,7 @@
 						<a href="@Url.Action("Del", "Site", new { id = m.id })">删除</a>
 						<a href="@Url.Action("Index", "Script", new { id = m.id })">脚本</a>
 						<a href="@Url.Action("New", "Script", new { id = m.id })">新建脚本</a>
+                        <a href="@Url.Action("Download", "Script", new { id = m.id })" style="color:black;font-weight:bold;">下载</a>
 					</td>
 					</tr>
 				}

@@ -36,8 +36,9 @@ $("span.none").click(function () {
     });
 });
 $(".selects").change(function () {
-    $("#code").removeClass();
-    $("#code").addClass("code" + $(this).val());
+    //$("#code").removeClass();
+    $("#code").attr("class", "code" + $(this).val());
+    //$("#code").addClass("code" + $(this).val());
     $("#code").focus();
     $("#code").select();
 });

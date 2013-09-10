@@ -3,42 +3,40 @@
     ViewBag.Title = "创建脚本";
     Layout = "~/Views/Shared/_aside.cshtml";
     var site = ViewBag.Site;
-    var Type = ViewBag.Type;
+    var type = ViewBag.Type;
 }
 
 <div class="module newscript">
-    <header><h3>新脚本</h3></header>
-    <div class="contents">
-        @using (Html.BeginForm("New", "Script"))
-        {
-            @Html.AntiForgeryToken()
-            <ul class="forms">
-                <li>
-                    @Html.LabelFor(s => s.name)
-                    @Html.TextBoxFor(s => s.name, new { style = "width:300px", autofocus = "autofocus" })
-                    @Html.ValidationMessageFor(s => s.name)
-                </li>
-                <li>
-                    @Html.LabelFor(s => s.sid)
-                    @Html.DropDownListFor(s => s.sid, (SelectList)site)
-                    @Html.ValidationMessageFor(s => s.sid);
-                </li>
-                <li>
-                    @Html.LabelFor(s => s.type)
-                    @Html.DropDownListFor(s => s.type, (SelectList)Type, new { @class = "selects" })
-                    @Html.ValidationMessageFor(s => s.type)
-                </li>
-                <li>
-                    @Html.LabelFor(s => s.code)
-                    @Html.TextAreaFor(s => s.code)
-                    @Html.ValidationMessageFor(s => s.code)
-                </li>
-            </ul>
-            <div class="msg">@Html.ValidationSummary(true)@ViewBag.Message</div>
-            <div class="button pager">
-                <button class="normal" type="submit">创建脚本</button>
-                <button class="normal" type="reset">重新输入</button>
+    @using (Html.BeginForm("New", "Script"))
+    {
+        @Html.AntiForgeryToken()
+        <header>
+            <h3>@Html.LabelFor(s=>s.name)
+                @Html.TextBoxFor(s => s.name, new { autofocus = "autofocus", style = "width:400px;" })</h3>
+            <div class="pager middle">
+                @Html.LabelFor(s => s.siteid)
+                @Html.DropDownListFor(s => s.siteid, (SelectList)site, new { disabled = "disabled" })
+                @Html.LabelFor(s => s.type)
+                @Html.DropDownListFor(s => s.type, (SelectList)type, new { @class = "selects"})
             </div>
+        </header>
+        <div class="editor" style="display: block;border-bottom:1px #ccc solid;">
+            @Html.TextAreaFor(s => s.code, new { @class = "code1"})
+        </div>
+        <div class="message">
+            <span class="red">
+                @Html.ValidationMessageFor(s => s.name)
+                @Html.ValidationMessageFor(s => s.siteid)
+                @Html.ValidationMessageFor(s => s.type)
+                @Html.ValidationMessageFor(s => s.code)
+            </span>
+            @Html.ValidationSummary(true)
+            @ViewBag.Message
+        </div>
+        <div class="clear"></div>
+        <div class="button pager">
+            <button class="normal" type="submit">创建脚本</button>
+            <button class="normal" type="reset">重新输入</button>
+        </div>
         }
-    </div>
 </div>

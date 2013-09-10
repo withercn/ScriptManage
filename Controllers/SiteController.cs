@@ -53,9 +53,8 @@ namespace ScriptManage.Controllers
                 }
                 ViewBag.Message = "添加站点成功。";
             }
+            Model.ScriptRedirect(ViewBag, Url.Action("Index", "Site"));
             return View();
         }
-
-
     }
 }

@@ -11,7 +11,7 @@ namespace ScriptManage
 {
     public class Model
     {
-        public static string GetScript(string scriptName,params string[] scriptBlocks)
+        public static string GetScript(string scriptName, params string[] scriptBlocks)
         {
             BundleTable.Bundles.Add(new Bundle(scriptName, new JsMinify()).Include(scriptBlocks));
             return Scripts.Render(scriptName).ToHtmlString();
@@ -48,6 +48,10 @@ namespace ScriptManage
                 Data = data,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
+        }
+        public static void ScriptRedirect(dynamic ViewBag, string url)
+        {
+            ViewBag.Script = string.Format("<script>setTimeout(\"location.href = '{0}'\", 3000);</script>", url);
         }
     }
 }

@@ -14,5 +14,6 @@
     @RenderBody()
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
+    @Html.Raw(ViewBag.Script)
 </body>
 </html>

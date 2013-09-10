@@ -11,20 +11,24 @@
 		{
 			<h3>用户</h3>
 			<ul class="toggle">
-				<li>@Html.ActionLink("用户管理","index","user")</li>
-				<li>@Html.ActionLink("新建用户","new","user")</li>
+				<li>@Html.ActionLink("用户管理","Index","User")</li>
+				<li>@Html.ActionLink("新用户","New","User")</li>
 			</ul>
 		}
 		<h3>脚本</h3>
 		<ul class="toggle">
-			<li>@Html.ActionLink("站点管理","index","site")</li>
-			<li>@Html.ActionLink("新建站点","new","site")</li>
-			<li>@Html.ActionLink("新建脚本","new","script")</li>
+			<li>@Html.ActionLink("站点管理","Index","Site")</li>
+			<li>@Html.ActionLink("新站点","New","Site")</li>
 		</ul>
+        <h3>特效</h3>
+        <ul class="toggle">
+            <li>@Html.ActionLink("特效管理","Index","Effect")</li>
+            <li>@Html.ActionLink("新特效","New","Effect")</li>
+        </ul>
 		<h3>安全</h3>
 		<ul class="toggle">
-			<li>@Html.ActionLink("修改密码","password","user")</li>
-			<li>@Html.ActionLink("退出登陆","Logout","user")</li>
+			<li>@Html.ActionLink("修改密码","Password","User")</li>
+			<li>@Html.ActionLink("退出登陆","Logout","User")</li>
 		</ul>
 	</aside>
 	<section class="content">@RenderBody()</section>
