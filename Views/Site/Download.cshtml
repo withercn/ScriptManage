@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "下载脚本";
+    Layout = "~/Views/Shared/_aside.cshtml";
+}
+
+<div class="module list">
+    <header>
+        <h3 class="hide" style="display:block;">打包下载</h3>
+        <div class="pager nomargin">
+            <a class="copyCode">复制代码</a>
+            <a href="@ViewBag.DownloadUrl">下载脚本文件</a>
+        </div>
+    </header>
+    <div class="editor" style="display: block;">
+        <textarea class="code1" id="download" disabled="disabled">@ViewBag.ScriptUrl</textarea>
+    </div>
+</div>

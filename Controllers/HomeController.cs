@@ -40,8 +40,10 @@ namespace ScriptManage.Controllers
                     query.role = "系统管理员";
                     db.SaveChanges();
                 }
-                db.CodeTypes.Add(new CodeTypes() { id = 0, name = "本地脚本块" });
-                db.CodeTypes.Add(new CodeTypes() { id = 0, name = "远程脚本文件" });
+                db.Database.ExecuteSqlCommand("delete CodeType");
+                db.SaveChanges();
+                db.CodeTypes.Add(new CodeTypes() { id = 1, name = "本地脚本块" });
+                db.CodeTypes.Add(new CodeTypes() { id = 2, name = "远程脚本文件" });
                 db.SaveChanges();
 
                 query = db.Users.FirstOrDefault(u => u.username == "clal");

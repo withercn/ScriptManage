@@ -79,9 +79,8 @@ namespace ScriptManage.Models
     [Table("CodeType")]
     public class CodeTypes
     {
-        [Key]
-        [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
+        [Key]
         public string name { get; set; }
     }
 }

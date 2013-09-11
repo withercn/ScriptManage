@@ -37,6 +37,29 @@ namespace ScriptManage.Models
                 return false;
             }
         }
+        public static IEnumerable<ScriptsCode> GetLocalScript(int siteid)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var query = db.Database.SqlQuery<ScriptsCode>(string.Format("select s.id,s.code,s.dates,s.sid from scriptscode s inner join(select max(dates) dates,sid from ScriptsCode group by sid) b on s.sid=b.sid and s.dates=b.dates and s.sid in (select id from scripts where sid={0} and type=1)", siteid)).ToList();
+                return query;
+            }
+        }
+        public static IEnumerable<ScriptsCode> GetRemoteScript(int siteid)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var query = db.Database.SqlQuery<ScriptsCode>(string.Format("select s.id,s.code,s.dates,s.sid from scriptscode s inner join(select max(dates) dates,sid from ScriptsCode group by sid) b on s.sid=b.sid and s.dates=b.dates and s.sid in (select id from scripts where sid={0} and type=2)", siteid)).ToList();
+                return query;
+            }
+        }
+        public static Sites GetSite(int siteid)
+        {
+            using (var db = new DatabaseContext())
+            {
+                return db.Sites.FirstOrDefault(s => s.id == siteid);
+            }
+        }
     }
 
     public class Domain : ValidationAttribute

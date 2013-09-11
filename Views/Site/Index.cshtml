@@ -11,7 +11,7 @@
 		@using (Html.BeginForm("Del", "Site"))
 		{
 			@Html.AntiForgeryToken();
-		<table class="tablesorter" cellspacing="0">
+		<table class="tablesorter">
 			<thead><tr>
 				<th class="header nowrap"><span class="all">全选</span> / <span class="none">反选</span></th>
 				<th class="header nowrap">编号 <img src="~/Images/bg.gif" /></th>
@@ -30,8 +30,8 @@
 					<td class="pager">
 						<a href="@Url.Action("Del", "Site", new { id = m.id })">删除</a>
 						<a href="@Url.Action("Index", "Script", new { id = m.id })">脚本</a>
-						<a href="@Url.Action("New", "Script", new { id = m.id })">新建脚本</a>
-                        <a href="@Url.Action("Download", "Script", new { id = m.id })" style="color:black;font-weight:bold;">下载</a>
+						<a href="@Url.Action("New", "Script", new { id = m.id })">新脚本</a>
+						<a href="@Url.Action("Download", "Site", new { id = m.id })" style="color:#005801;font-weight:bold;">下载</a>
 					</td>
 					</tr>
 				}

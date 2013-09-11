@@ -17,7 +17,7 @@
 			<div class="pager middle">
 				@*@Html.LabelFor(s => s.siteid)
 				@Html.DropDownListFor(s => s.siteid, (SelectList)site, new { disabled = "disabled" })*@
-                @Html.HiddenFor(s => s.siteid)
+				@Html.HiddenFor(s => s.siteid)
 				@Html.LabelFor(s => s.type)
 				@Html.DropDownListFor(s => s.type, (SelectList)type, new { @class = "selects", selectedValue=Model.type })
 			</div>
@@ -31,7 +31,7 @@
 				{<a href="@Url.Action("Lock", "Script", new { id = Model.sid })">解除锁定</a> }
 				else
 				{<a href="@Url.Action("Lock", "Script", new { id = Model.sid })">锁定</a>}
-                <a href="@Url.Action("Index", "Script", new { id = Model.siteid })">返回</a>
+				<a href="@Url.Action("Index", "Script", new { id = Model.siteid })">返回</a>
 			</div>
 		</header>
 		<div class="editor" style="display: block;">
@@ -51,8 +51,8 @@
 	}
 </div>
 @section Styles{
-	@Styles.Render("~/Content/SyntaxHighlighter")
+	@Styles.Render("~/Content/SyntaxHighlighterCss")
 }
 @section SyntaxHighlighter{
-	@Scripts.Render("~/bundles/SyntaxHighlighter")
+	@Scripts.Render("~/bundles/SyntaxHighlighter")@Scripts.Render("~/bundles/HtmlTextareaTab")
 }

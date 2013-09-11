@@ -105,12 +105,12 @@ namespace ScriptManage.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!ScriptModel.Update(model.sid, model.name, model.code))
+                if (!ScriptModel.Update(model))
                     ModelState.AddModelError("", "指定的脚本名称已经存在");
                 else
                     ViewBag.Message = "脚本创建成功";
             }
-            ViewBag.Script = string.Format("<script>setTimeout(\"location.href = '{0}'\", 3000);</script>", Url.Action("Index", "Script", new { id = model.siteid }));
+            Model.ScriptRedirect(ViewBag, Url.Action("Index", "Script", new { id = model.siteid }));
             return Edit(model.sid);
         }
     }

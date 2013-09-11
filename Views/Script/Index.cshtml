@@ -12,7 +12,7 @@
 			<input type="hidden" name="sid" value="@m.sid" />
 			<input type="hidden" name="update" value="0" />
 			<header>
-				<h3>@if(m.locks){<span class="lock">(已锁定)</span>} @if (m.del){<span>(已删除)</span>}else { @m.name<span class="dates">@(m.dates.ToString(" yyyy年MM月dd日 hh:mm:ss"))</span>}</h3>
+				<h3 class="hide" style="display:block;">@if(m.locks){<span class="lock">(已锁定)</span>} @if (m.del){<span>(已删除)</span>}else { @m.name<span class="dates">@(m.dates.ToString(" yyyy年MM月dd日 hh:mm:ss"))</span>}</h3>
 				<div class="pager nomargin">
 					<a class="history" scriptid="@m.id">历史记录</a>
 					@if (!m.del && !m.locks)
@@ -35,21 +35,11 @@
 			</header>
 			<div class="codeContent">
 				<div class="codeList block"></div>
-				<div class="codeHigh block"></div>
-				<div class="editor block">
-					<textarea name="code" class="js"></textarea>
-				</div>
 			</div>
 			<div class="clear"></div>
 		}
 	</div>
 }
-@section Scripts{
-	@Scripts.Render("~/bundles/jquerytable")
-}
-@section Styles{
-	@Styles.Render("~/Content/SyntaxHighlighter")
-}
-@section SyntaxHighlighter{
-	@Scripts.Render("~/bundles/SyntaxHighlighter")
-}
+@section Scripts{@Scripts.Render("~/bundles/jquerytable")}
+@section Styles{@Styles.Render("~/Content/SyntaxHighlighterCss")}
+@section SyntaxHighlighter{@Scripts.Render("~/bundles/SyntaxHighlighter")}

@@ -11,12 +11,17 @@ namespace ScriptManage
 {
     public class Model
     {
+        public const int delay = 3000;
+
         public static string GetScript(string scriptName, params string[] scriptBlocks)
         {
             BundleTable.Bundles.Add(new Bundle(scriptName, new JsMinify()).Include(scriptBlocks));
             return Scripts.Render(scriptName).ToHtmlString();
         }
-
+        public static void RegisterScript(string scriptName, params string[] scriptBlocks)
+        {
+            BundleTable.Bundles.Add(new Bundle(scriptName, new JsMinify()).Include(scriptBlocks));
+        }
         public static string CreateMD5String(string desString)
         {
             MD5 md5 = MD5.Create();
@@ -51,7 +56,7 @@ namespace ScriptManage
         }
         public static void ScriptRedirect(dynamic ViewBag, string url)
         {
-            ViewBag.Script = string.Format("<script>setTimeout(\"location.href = '{0}'\", 3000);</script>", url);
+            ViewBag.Script = string.Format("<script>setTimeout(\"location.href = '{0}'\", {1});</script>", url, delay);
         }
     }
 }

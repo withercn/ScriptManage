@@ -16,7 +16,7 @@ namespace ScriptManage.Models
         {
             using (var db = new DatabaseContext())
             {
-                var query = db.Scripts.FirstOrDefault(s => s.name == script.name);
+                var query = db.Scripts.FirstOrDefault(s => (s.name == script.name && s.sid == script.sid));
                 if (query != null) return false;
                 db.Scripts.Add(script);
                 db.SaveChanges();
@@ -27,19 +27,19 @@ namespace ScriptManage.Models
                 return true;
             }
         }
-        public static bool Update(int id,string name,string code)
+        public static bool Update(CodeModel model)
         {
             using (var db = new DatabaseContext())
             {
-                var scripts = db.Scripts.FirstOrDefault(s => s.name == name);
+                var scripts = db.Scripts.FirstOrDefault(s => (s.name == model.name && s.sid == model.siteid));
                 if (scripts == null) return false;
-                scripts = db.Scripts.FirstOrDefault(s => s.id == id);
+                scripts = db.Scripts.FirstOrDefault(s => s.id == model.id);
                 if (scripts != null)
                 {
-                    scripts.name = name;
+                    scripts.name = model.name;
                     db.SaveChanges();
                 }
-                db.ScriptsCode.Add(new ScriptsCode() { sid = id, code = code, dates = DateTime.Now });
+                db.ScriptsCode.Add(new ScriptsCode() { sid = model.id, code = model.code, dates = DateTime.Now });
                 db.SaveChanges();
                 return true;
             }
