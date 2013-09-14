@@ -1,11 +1,11 @@
 ﻿@{
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<header>
+	<h1>系统管理员</h1>
+	<h2>操作</h2>
+</header>
 <section class="main">
-	<header>
-		<h1>系统管理员</h1>
-		<h2>操作</h2>
-	</header>
 	<aside class="aside">
 		@if (HttpContext.Current.User.IsInRole("系统管理员"))
 		{

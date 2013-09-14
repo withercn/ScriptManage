@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.Optimization;
@@ -6,13 +7,29 @@ using System.Text;
 using System.Security.Cryptography;
 using System.Web.Mvc;
 using System.Web;
+using Microsoft.Ajax.Utilities;
 
 namespace ScriptManage
 {
     public class Model
     {
         public const int delay = 3000;
-
+        
+        public static string BundleScript(List<string> scriptBlock)
+        {
+            var content = new StringBuilder();
+            var minifier = new Minifier();
+            
+            foreach(var script in scriptBlock)
+            {
+                content.Append(script);
+            }
+            //JSParser parser = new JSParser(content.ToString());
+            //CodeSettings settings = new CodeSettings();
+            //Block block = parser.Parse(settings);
+            //return block.ToCode();
+            return minifier.MinifyJavaScript(content.ToString());
+        }
         public static string GetScript(string scriptName, params string[] scriptBlocks)
         {
             BundleTable.Bundles.Add(new Bundle(scriptName, new JsMinify()).Include(scriptBlocks));

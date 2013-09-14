@@ -8,7 +8,7 @@
 @using (Html.BeginForm("Login","User",new { ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post,new{@class="LoginForm"}))
 {
     @Html.AntiForgeryToken();
-    <header><h2>脚本管理系统</h2></header>
+    <header><h3>脚本管理系统</h3></header>
     <ul class="input">
         <li>
             @Html.LabelFor(m => m.username)

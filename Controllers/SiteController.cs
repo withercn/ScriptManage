@@ -60,34 +60,21 @@ namespace ScriptManage.Controllers
         public ActionResult Download(int id)
         {
             Sites site = SiteModel.GetSite(id);
-            string dPath = Server.MapPath("/block/" + site.domain);
-            if (!Directory.Exists(dPath))
-                Directory.CreateDirectory(dPath);
-            var scripts = SiteModel.GetLocalScript(id);
             var remotes = SiteModel.GetRemoteScript(id);
-            string[] block = new string[scripts.Count()];
-            var i=0;
-            foreach (var code in scripts)
-            {
-                string fPath = dPath + "\\" + code.id + ".js";
-                using (StreamWriter sw = System.IO.File.CreateText(fPath))
-                {
-                    sw.Write(code.code);
-                    sw.Flush();
-                }
-                block[i] = "~/block/" + site.domain + "\\" + code.id + ".js";
-                i++;
-            }
             var guid = Guid.NewGuid().ToString();
             string scriptUrl = "~/" + guid;
             foreach (var code in remotes)
             {
                 ViewBag.ScriptUrl += string.Format("<script type=\"text/javascript\" src=\"{0}\"></script>\r\n", code.code);
             }
-            Model.RegisterScript(scriptUrl, block);
-            ViewBag.DownloadUrl = System.Web.Optimization.Scripts.Url(scriptUrl);
-            ViewBag.ScriptUrl += string.Format("<script type=\"text/javascript\" src=\"{0}.js\"></script>\r\n", guid);
+
+            ViewBag.DownloadUrl = Url.Action("DownloadFile", "Site", new { id = id });
+            ViewBag.ScriptUrl += string.Format("<script type=\"text/javascript\" src=\"{0}.js\"></script>\r\n", site.name);
             return View();
+        }
+        public FileContentResult DownloadFile(int id)
+        {
+            return File(System.Text.Encoding.UTF8.GetBytes(Model.BundleScript(SiteModel.GetLocalScript(id).Select(s => s.code).ToList<string>())), "application/x-javascript", SiteModel.GetSite(id).name + ".js");
         }
     }
 }

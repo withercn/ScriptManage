@@ -39,7 +39,7 @@
 		</table>
 			<div class="pager">
 				<span class="all">全选</span> / <span class="none">反选</span>
-				<button class="delete" type="submit">删除</button>
+				<a href="javascript:;" class="submit">删除</a>
 				@Html.ActionLink("添加", "New", "Site")
 				<a href="@Url.Action("Index", "Site", new { id = pager.First })">首页</a>
 				<a href="@Url.Action("Index", "Site", new { id = pager.Prev })"><</a>

@@ -95,6 +95,10 @@ $(".list header .history").click(function () {
     else
         $(".codeList", block).slideUp(delay);
 });
+$("a.submit").click(function () {
+    var index = $("a.submit").index(this);
+    $("form:eq(" + index + ")").submit();
+});
 $(".copyCode").click(function () {
     copyToClipboard($("#download").val());
 });

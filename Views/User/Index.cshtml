@@ -34,7 +34,7 @@
 			</table>
 			<div class="pager">
 				<span class="all">全选</span> / <span class="none">反选</span>
-				<button class="delete" type="submit">批量删除</button>
+				<a href="javascript:void(0);" class="submit">批量删除</a>
 				@Html.ActionLink("添加账号", "New", "User")
 				<a href="@Url.Action("Index", "User", new { id = pager.First })">首页</a>
 				<a href="@Url.Action("Index", "User", new { id = pager.Prev })"><</a>
