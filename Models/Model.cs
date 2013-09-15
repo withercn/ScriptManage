@@ -24,20 +24,7 @@ namespace ScriptManage
             {
                 content.Append(script);
             }
-            //JSParser parser = new JSParser(content.ToString());
-            //CodeSettings settings = new CodeSettings();
-            //Block block = parser.Parse(settings);
-            //return block.ToCode();
             return minifier.MinifyJavaScript(content.ToString());
-        }
-        public static string GetScript(string scriptName, params string[] scriptBlocks)
-        {
-            BundleTable.Bundles.Add(new Bundle(scriptName, new JsMinify()).Include(scriptBlocks));
-            return Scripts.Render(scriptName).ToHtmlString();
-        }
-        public static void RegisterScript(string scriptName, params string[] scriptBlocks)
-        {
-            BundleTable.Bundles.Add(new Bundle(scriptName, new JsMinify()).Include(scriptBlocks));
         }
         public static string CreateMD5String(string desString)
         {

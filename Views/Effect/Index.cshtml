@@ -1,22 +1,19 @@
-﻿
-@{
-	ViewBag.Title = "网站管理";
+﻿@{
+	ViewBag.Title = "特效管理";
 	Layout = "~/Views/Shared/_aside.cshtml";
 	ScriptManage.Models.HtmlPager pager = ViewBag.Pager;
 }
-
 <div class="module site">
-	<header><h3>网站列表</h3></header>
+	<header><h3>特效列表</h3></header>
 	<div class="contents">
-		@using (Html.BeginForm("Del", "Site"))
+		@using (Html.BeginForm("Del", "Effect"))
 		{
 			@Html.AntiForgeryToken();
 		<table class="tablesorter">
 			<thead><tr>
-				<th class="header nowrap"><span class="all">全选</span> / <span class="none">反选</span></th>
-				<th class="header nowrap">编号 <img src="~/Images/bg.gif" /></th>
-				<th class="header nowrap">域名 <img src="~/Images/bg.gif" /></th>
-				<th class="header">网站名称</th>
+				<th class="header nowrap w10"><span class="all">全选</span> / <span class="none">反选</span></th>
+				<th class="header nowrap w10">编号 <img src="~/Images/bg.gif" /></th>
+				<th class="header nowrap">特效名称</th>
 				<th class="header">操作</th>
 			</tr></thead>
 			<tbody>
@@ -25,11 +22,10 @@
 					<tr>
 					<td><input type="checkbox" name="id" value="@m.id" /></td>
 					<td>@m.id</td>
-					<td>@m.domain</td>
 					<td>@m.name</td>
 					<td class="pager">
-						<a href="@Url.Action("Del", "Site", new { id = m.id })">删除</a>
-						<a href="@Url.Action("Index", "Script", new { id = m.id })">脚本管理</a>
+						<a href="@Url.Action("Detail", "Effect", new { id = m.id })">详细</a>
+						<a href="@Url.Action("Del", "Effect", new { id = m.id })">删除</a>
 					</td>
 					</tr>
 				}
@@ -38,9 +34,9 @@
 			<div class="pager">
 				<span class="all">全选</span> / <span class="none">反选</span>
 				<a href="javascript:;" class="submit">删除</a>
-				@Html.ActionLink("添加", "New", "Site")
-				<a href="@Url.Action("Index", "Site", new { id = pager.First })">首页</a>
-				<a href="@Url.Action("Index", "Site", new { id = pager.Prev })"><</a>
+				@Html.ActionLink("添加", "New", "Effect")
+				<a href="@Url.Action("Index", "Effect", new { id = pager.First })">首页</a>
+				<a href="@Url.Action("Index", "Effect", new { id = pager.Prev })"><</a>
 				@for (var i = pager.Start; i <= pager.End; i++)
 				{
 					if (i != pager.PageIndex)
@@ -52,9 +48,9 @@
 					<a class="current">@i</a>
 				}
 				}
-				<a href="@Url.Action("Index", "Site", new { id = pager.Next })">></a>
-				<a href="@Url.Action("Index", "Site", new { id = pager.Last })">末页</a>
-				<a>共@(pager.TotalRecord)个网站</a>
+				<a href="@Url.Action("Index", "Effect", new { id = pager.Next })">></a>
+				<a href="@Url.Action("Index", "Effect", new { id = pager.Last })">末页</a>
+				<a>共@(pager.TotalRecord)个特效</a>
 			</div>
 		}
 		<div class="msg">@ViewBag.Message</div>

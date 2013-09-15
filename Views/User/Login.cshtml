@@ -25,7 +25,8 @@
         <button type="submit">确定</button>
         <button type="reset">取消</button>
     </footer>
-    @Html.ValidationSummary(true);
+    <div class="msg">@Html.ValidationSummary(true);@ViewBag.Message</div>
+    
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     }

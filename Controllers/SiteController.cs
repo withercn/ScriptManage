@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using ScriptManage.Models;
 using WebMatrix.WebData;
-using System.IO;
 
 namespace ScriptManage.Controllers
 {
@@ -56,25 +55,6 @@ namespace ScriptManage.Controllers
             }
             Model.ScriptRedirect(ViewBag, Url.Action("Index", "Site"));
             return View();
-        }
-        public ActionResult Download(int id)
-        {
-            Sites site = SiteModel.GetSite(id);
-            var remotes = SiteModel.GetRemoteScript(id);
-            var guid = Guid.NewGuid().ToString();
-            string scriptUrl = "~/" + guid;
-            foreach (var code in remotes)
-            {
-                ViewBag.ScriptUrl += string.Format("<script type=\"text/javascript\" src=\"{0}\"></script>\r\n", code.code);
-            }
-
-            ViewBag.DownloadUrl = Url.Action("DownloadFile", "Site", new { id = id });
-            ViewBag.ScriptUrl += string.Format("<script type=\"text/javascript\" src=\"{0}.js\"></script>\r\n", site.name);
-            return View();
-        }
-        public FileContentResult DownloadFile(int id)
-        {
-            return File(System.Text.Encoding.UTF8.GetBytes(Model.BundleScript(SiteModel.GetLocalScript(id).Select(s => s.code).ToList<string>())), "application/x-javascript", SiteModel.GetSite(id).name + ".js");
         }
     }
 }

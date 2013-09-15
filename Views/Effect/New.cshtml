@@ -1,0 +1,34 @@
+﻿@model ScriptManage.Models.EffectNewModel
+@{
+    ViewBag.Title = "新特效";
+    Layout = "~/Views/Shared/_aside.cshtml";
+}
+
+<div class="module newscript">
+@using (Html.BeginForm("New", "Effect"))
+{ 
+    @Html.AntiForgeryToken()
+    <header>
+        <h3>@Html.LabelFor(s=>s.name)
+            @Html.TextBoxFor(s => s.name, new { autofocus = "autofocus", style = "width:600px;" })
+            @Html.ValidationMessageFor(s => s.name)
+        </h3>
+    </header>
+    <div class="editor" style="display: block; border-bottom: 1px #ccc solid;">
+        @Html.TextAreaFor(s => s.code, new { @class = "code1" })
+    </div>
+    <div class="message">
+        <span class="red">
+            @Html.ValidationMessageFor(s => s.code)
+        </span>
+        @Html.ValidationSummary(true)
+        @ViewBag.Message
+    </div>
+    <div class="clear"></div>
+    <div class="button pager">
+        <button class="normal" type="submit">创建特效</button>
+        <button class="normal" type="reset">重新输入</button>
+    </div>
+}
+</div>
+@section Scripts {@Scripts.Render("~/bundles/jqueryval")}

@@ -14,6 +14,8 @@ namespace ScriptManage.Controllers
         public ActionResult Index(int id)
         {
             var db = new DatabaseContext();
+            ViewBag.SiteID = id;
+            ViewBag.ReturnUrl = Url.Action("Index", "Site");
             if (User.IsInRole("系统管理员"))
                 return View(db.Scripts.Where(s => (s.sid == id)).OrderByDescending(s => s.id));
             else
@@ -80,8 +82,10 @@ namespace ScriptManage.Controllers
         public JsonResult History(int id)
         {
             var db = new DatabaseContext();
-            var query = db.ScriptsCode.Where(s => s.sid == id).Select(s => new { s.id, s.dates, s.code }).OrderByDescending(s => s.dates);
-            return Model.Json(query);
+            if (User.IsInRole("系统管理员"))
+                return Model.Json(db.ScriptsCode.Where(s => s.sid == id).Select(s => new { s.id, s.dates, s.code }).OrderByDescending(s => s.dates));
+            else
+                return Model.Json(db.ScriptsCode.Where(s => s.sid == id).Select(s => new { s.id, s.dates, s.code }).OrderByDescending(s => s.dates).Take(1));
         }
         public ActionResult Undo(int id)
         {
@@ -112,6 +116,30 @@ namespace ScriptManage.Controllers
             }
             Model.ScriptRedirect(ViewBag, Url.Action("Index", "Script", new { id = model.siteid }));
             return Edit(model.sid);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Download(int id)
+        {
+            var scriptid = Request.Form["scriptid"];
+            var enname = Request.Form["enname"];
+            if (string.IsNullOrEmpty(enname)) enname = "1";
+            ViewBag.ReturnUrl = Url.Action("Index", "Script", new { id = id });
+            if (string.IsNullOrEmpty(scriptid)) return View();
+            var remotes = SiteModel.GetRemoteScript(scriptid);
+            foreach (var code in remotes)
+            {
+                ViewBag.ScriptUrl += string.Format("<script type=\"text/javascript\" src=\"{0}\"></script>\r\n", code.code);
+            }
+            ViewBag.DownloadUrl = Url.Action("DownloadFile", "Script", new { scriptid = scriptid, scriptname = enname });
+            ViewBag.ScriptUrl += string.Format("<script type=\"text/javascript\" src=\"{0}.js\"></script>\r\n", enname);
+            return View();
+        }
+        public FileContentResult DownloadFile(string scriptid, string scriptname)
+        {
+            if (string.IsNullOrEmpty(scriptid)) return new FileContentResult(null, null);
+            return File(System.Text.Encoding.UTF8.GetBytes(Model.BundleScript(SiteModel.GetLocalScript(scriptid).Select(s => s.code).ToList<string>())), "application/x-javascript", scriptname + ".js");
         }
     }
 }

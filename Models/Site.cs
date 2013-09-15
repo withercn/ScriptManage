@@ -37,19 +37,21 @@ namespace ScriptManage.Models
                 return false;
             }
         }
-        public static IEnumerable<ScriptsCode> GetLocalScript(int siteid)
+        public static IEnumerable<ScriptsCode> GetLocalScript(string siteid)
         {
+            if (string.IsNullOrEmpty(siteid)) return null;
             using (var db = new DatabaseContext())
             {
-                var query = db.Database.SqlQuery<ScriptsCode>(string.Format("select s.id,s.code,s.dates,s.sid from scriptscode s inner join(select max(dates) dates,sid from ScriptsCode group by sid) b on s.sid=b.sid and s.dates=b.dates and s.sid in (select id from scripts where sid={0} and type=1)", siteid)).ToList();
+                var query = db.Database.SqlQuery<ScriptsCode>(string.Format("select s.id,s.code,s.dates,s.sid from scriptscode s inner join(select max(dates) dates,sid from ScriptsCode group by sid) b on s.sid=b.sid and s.dates=b.dates and s.sid in (select id from scripts where id in ({0}) and type=1 and del=0)", siteid)).ToList();
                 return query;
             }
         }
-        public static IEnumerable<ScriptsCode> GetRemoteScript(int siteid)
+        public static IEnumerable<ScriptsCode> GetRemoteScript(string siteid)
         {
+            if (string.IsNullOrEmpty(siteid)) return null;
             using (var db = new DatabaseContext())
             {
-                var query = db.Database.SqlQuery<ScriptsCode>(string.Format("select s.id,s.code,s.dates,s.sid from scriptscode s inner join(select max(dates) dates,sid from ScriptsCode group by sid) b on s.sid=b.sid and s.dates=b.dates and s.sid in (select id from scripts where sid={0} and type=2)", siteid)).ToList();
+                var query = db.Database.SqlQuery<ScriptsCode>(string.Format("select s.id,s.code,s.dates,s.sid from scriptscode s inner join(select max(dates) dates,sid from ScriptsCode group by sid) b on s.sid=b.sid and s.dates=b.dates and s.sid in (select id from scripts where id in ({0}) and type=2 and del=0)", siteid)).ToList();
                 return query;
             }
         }

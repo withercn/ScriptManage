@@ -35,7 +35,7 @@ namespace ScriptManage.Controllers
         public ActionResult Del(int id)
         {
             UserModel.DeleteUser(id.ToString());
-            return RedirectToAction("Index", "User");
+            return this.RedirectToAction("index", "User");
         }
         [Authorize(Roles = "系统管理员")]
         [HttpPost]
@@ -44,7 +44,7 @@ namespace ScriptManage.Controllers
         {
             string idlist = Request.Form["id"];
             UserModel.DeleteUser(idlist);
-            return RedirectToAction("Index", "User");
+            return this.RedirectToAction("index", "User");
         }
         [Authorize(Roles = "系统管理员")]
         public ActionResult New()
@@ -67,6 +67,7 @@ namespace ScriptManage.Controllers
                     ModelState.AddModelError("", "账号已经存在。");
                 }
             }
+            Model.ScriptRedirect(ViewBag, Url.Action("Index", "User"));
             return View();
         }
         [HttpPost]
@@ -81,8 +82,9 @@ namespace ScriptManage.Controllers
                 if (UserModel.ValidUser(username, password))
                 {
                     FormsAuthentication.SetAuthCookie(model.username, false);
+                    ViewBag.Message = string.Format("用户：{0} 登陆成功.", username);
                     LogModel.Write(string.Format("用户：{0} 登陆成功.", username));
-                    return RedirectToLocal(returnUrl);
+                    Model.ScriptRedirect(ViewBag, returnUrl);
                 }
             }
             LogModel.Write(string.Format("用户：{0} 登陆失败.", username));
@@ -107,6 +109,7 @@ namespace ScriptManage.Controllers
                 }
                 ModelState.AddModelError("", "修改失败");
             }
+            Model.ScriptRedirect(ViewBag, Url.Action("Index", "User"));
             return View(model);
         }
         public ActionResult Logout(string returnUrl)

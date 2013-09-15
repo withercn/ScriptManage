@@ -1,14 +1,14 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "下载脚本";
     Layout = "~/Views/Shared/_aside.cshtml";
 }
-<div class="module list">
+<div class="module scripts">
     <header>
-        <h3 class="hide" style="display:block;">打包下载</h3>
+        <h3 class="hide" style="display:block;">脚本调用代码</h3>
         <div class="pager nomargin">
             <a class="copyCode">复制代码</a>
             <a href="@ViewBag.DownloadUrl">下载脚本文件</a>
+            <a href="@ViewBag.ReturnUrl">返回</a>
         </div>
     </header>
     <div class="editor" style="display: block;">

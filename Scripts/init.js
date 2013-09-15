@@ -26,9 +26,9 @@ $(".tablesorter tbody tr").click(function () {
     else
         $("input:checkbox", this).attr("checked", "checked");
 });
-$("span.all").click(function () { $(".tablesorter input:checkbox").attr("checked", "checked"); });
+$("span.all").click(function () { $(".module input:checkbox").attr("checked", "checked"); });
 $("span.none").click(function () {
-    $(".tablesorter input:checkbox").each(function () {
+    $(".module input:checkbox").each(function () {
         if ($(this).attr("checked") != undefined)
             $(this).removeAttr("checked");
         else
@@ -61,7 +61,7 @@ $(".list header h3.hide input:text").blur(function () {
     $(this).parent().prev().show();
     $(".list header h3 label").html(this.value);
 });
-$(".list header .history").click(function () {
+$("header .history").click(function () {
     var block = $(this).parent().parent().parent();
     divInit(block);
     if ($(".codeList", block).css("display") == "none") {
@@ -95,6 +95,13 @@ $(".list header .history").click(function () {
     else
         $(".codeList", block).slideUp(delay);
 });
+$(".scripts .module header").click(function () {
+    if ($("input:checkbox", this).attr("checked") == undefined)
+        $("input:checkbox", this).attr("checked", "checked");
+    else
+        $("input:checkbox", this).removeAttr("checked");
+
+});
 $("a.submit").click(function () {
     var index = $("a.submit").index(this);
     $("form:eq(" + index + ")").submit();
@@ -102,6 +109,30 @@ $("a.submit").click(function () {
 $(".copyCode").click(function () {
     copyToClipboard($("#download").val());
 });
+function isPlaceholder() { return 'placeholder' in document.createElement('input'); }
+if (!isPlaceholder()) {
+    $("input").not("input[type='password']").each(//把input绑定事件 排除password框  
+        function () {
+            var color = $(this).css("color");
+            var pColor = "#ccc";
+            if ($(this).val() == "" && $(this).attr("placeholder") != "") {
+                $(this).val($(this).attr("placeholder"));
+                $(this).css("color", pColor);
+                $(this).focus(function () {
+                    if ($(this).val() == $(this).attr("placeholder")) {
+                        $(this).val("");
+                        $(this).css("color", color);
+                    }
+                });
+                $(this).blur(function () {
+                    if ($(this).val() == "") {
+                        $(this).val($(this).attr("placeholder"));
+                        $(this).css("color", pColor);
+                    }
+                });
+            }
+        });
+}
 function copyToClipboard(txt) {
     if (window.clipboardData) {
         window.clipboardData.clearData();
