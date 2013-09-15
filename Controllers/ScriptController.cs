@@ -35,10 +35,11 @@ namespace ScriptManage.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
         [Authorize(Roles="系统管理员")]
+        [HttpPost]
         public ActionResult Remove(int id)
         {
             ScriptModel.Remove(id);
-            return Redirect(Request.UrlReferrer.ToString());
+            return new EmptyResult();
         }
         public ActionResult Lock(int id)
         {

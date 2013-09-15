@@ -61,13 +61,13 @@ namespace ScriptManage.Controllers
                 if (UserModel.NewUser(model.username, model.password))
                 {
                     ViewBag.Message = "账号添加成功。";
+                    Model.ScriptRedirect(ViewBag, Url.Action("Index", "User"));
                 }
                 else
                 {
                     ModelState.AddModelError("", "账号已经存在。");
                 }
             }
-            Model.ScriptRedirect(ViewBag, Url.Action("Index", "User"));
             return View();
         }
         [HttpPost]

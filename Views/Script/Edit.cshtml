@@ -23,10 +23,13 @@
 			</div>
 			<div class="pager nomargin" style="top:0px;">
 				<button type="submit">保存</button>
-				@if (Model.del)
+                @if(User.IsInRole("系统管理员"))
+                {
+				if (Model.del)
 				{<a href="@Url.Action("Del", "Script", new { id = Model.sid })">撤消删除</a> }
 				else
 				{<a href="@Url.Action("Del", "Script", new { id = Model.sid })">删除</a>}
+                }
 				@if (Model.locks)
 				{<a href="@Url.Action("Lock", "Script", new { id = Model.sid })">解除锁定</a> }
 				else
@@ -50,9 +53,6 @@
 		<div class="clear"></div>
 	}
 </div>
-@section Styles{
-	@Styles.Render("~/Content/SyntaxHighlighterCss")
-}
-@section SyntaxHighlighter{
-	@Scripts.Render("~/bundles/SyntaxHighlighter")@Scripts.Render("~/bundles/HtmlTextareaTab")
-}
+@section Styles{@Styles.Render("~/Content/SyntaxHighlighterCss")}
+@section SyntaxHighlighter{@Scripts.Render("~/bundles/SyntaxHighlighter")}
+@section scripts{@Scripts.Render("~/bundles/HtmlTextareaTab")}

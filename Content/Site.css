@@ -86,17 +86,17 @@ label.error { color: #f00; margin-left: 5px; }
 .download { width: 90%; }
 .scripts { width: 90%; padding-bottom:20px;}
     .scripts .module { width: 95%;overflow: hidden;}
-        .scripts .module header h3 span { color: #f00; font-family: '宋体'; font-size: 12px; }
-        .scripts .module header h3 span.lock { color: #8e6300; }
-        .scripts .module header h3 span.remote { color: #008e01; }
-        .scripts .module header h3 span.dates { color: #909090; font-size: 11px; font-family: sans-serif; }
+        .scripts header h3 span { color: #f00; font-family: '宋体'; font-size: 12px; }
+        .scripts header h3 span.lock { color: #8e6300; }
+        .scripts header h3 span.remote { color: #008e01; }
+        .scripts header h3 span.dates { color: #909090; font-size: 11px; font-family: sans-serif; }
 span.all,span.none { cursor: pointer;font-weight:normal;font-family:"Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;font-size:12px;}
                 span.all:hover,span.none:hover { background-color:#eb9869; }
 .hide { display: none; }
 .codeHigh,.codeList { display: none; }
     .codeList dt {padding: 5px; margin:0 auto;}
-        .codeList dt dl { font-family: 'Microsoft YaHei UI'; font-size: 14px; padding:10px 0px 10px 20px;cursor:default;position:relative;transition-duration:0.5s;}
-            .codeList dt dl:hover { background-color: #532209;color:#e6dbd4;transition-duration:0.5s; }
+        .codeList dt dl { font-family: 'Microsoft YaHei UI'; font-size: 14px; padding:10px 0px 10px 20px;cursor:default;position:relative;}
+            .codeList dt dl:hover { background-color: #532209;color:#e6dbd4;}
             .codeList dt dl div { position: absolute; right: 10px;line-height:inherit;display:inline-block;}
         .codeList dt dd { display: none; list-style:none;padding:0;margin:0;}
 .nomargin { position: absolute; right: 10px; top:10px;}

@@ -8,8 +8,8 @@
 		<header>
 			<h3>代码压缩打包下载</h3>
 			<div class="pager nomargin">
-				<label for="enname">英文名称</label>
-				<input type="text" name="enname" id="enname" data-val-require="脚本英文名称必需填写" placeholder="用来生成脚本文件，如：jquery 将生成jquery.js" style="width:400px;" />
+				<label for="enname">文件名</label>
+				<input type="text" name="enname" id="enname" data-val-require="文件名称必需填写" placeholder="生成脚本文件，无需扩展名.如：jquery 将生成jquery.js" style="width:400px;" />
 				<a href="javascript:void(0)" class="submit" style="color:#005801;font-weight:bold;">下载</a>
 				<a href="@Url.Action("New", "Script", new { id = ViewBag.SiteID })">新脚本</a>
 				<a href="@ViewBag.ReturnUrl">返回</a>
@@ -28,10 +28,13 @@
 						@if (m.type == 2) { <span class="remote">(远程脚本)</span>}
 					</h3>
 					<div class="pager nomargin">
-						<a class="history" scriptid="@m.id">历史记录</a>
+						<a class="history" scriptid="@m.id" role="@(User.IsInRole("系统管理员").ToString())">历史记录</a>
 						@if (!m.del && !m.locks){<a class="editCode" href="@Url.Action("Edit", "Script", new { id = m.id })">修改</a>}
-						@if (m.del){<a href="@Url.Action("Del", "Script", new { id = m.id })">撤消删除</a> }
+                        @if(User.IsInRole("系统管理员"))
+                        {
+						if (m.del){<a href="@Url.Action("Del", "Script", new { id = m.id })">撤消删除</a> }
 						else{<a href="@Url.Action("Del", "Script", new { id = m.id })">删除</a>}
+                        }
 						@if (m.locks){<a href="@Url.Action("Lock", "Script", new { id = m.id })">解除锁定</a> }
 						else{<a href="@Url.Action("Lock", "Script", new { id = m.id })">锁定</a>}
 					</div>

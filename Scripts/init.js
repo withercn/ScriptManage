@@ -36,9 +36,7 @@ $("span.none").click(function () {
     });
 });
 $(".selects").change(function () {
-    //$("#code").removeClass();
     $("#code").attr("class", "code" + $(this).val());
-    //$("#code").addClass("code" + $(this).val());
     $("#code").focus();
     $("#code").select();
 });
@@ -62,6 +60,7 @@ $(".list header h3.hide input:text").blur(function () {
     $(".list header h3 label").html(this.value);
 });
 $("header .history").click(function () {
+    var role = eval($(this).attr("role").toLowerCase());
     var block = $(this).parent().parent().parent();
     divInit(block);
     if ($(".codeList", block).css("display") == "none") {
@@ -72,7 +71,7 @@ $("header .history").click(function () {
             var dt = $("<dt></dt>");
             $(data).each(function (index) {
                 var code = data[index];
-                var dl = $('<dl codeid="' + code.id + '" class="pager">修改时间：' + code.dates + '</dl>');
+                var dl = $('<dl dlid="' + code.id + '" class="pager">修改时间：' + code.dates + '</dl>');
                 var link = $("<a>代码</a>");
                 link.click(function () {
                     var dd = $(this).parent().parent().next();
@@ -82,11 +81,21 @@ $("header .history").click(function () {
                         dd.slideUp(delay);
                 });
                 var undo = $('<a href="/Script/Undo/' + code.id + '">还原</a>');
-                var remove = $('<a href="/Script/Remove/' + code.id + '">删除</a>');
                 var div = $("<div></div>");
-                div.append(link).append(undo).append(remove);
+                div.append(link).append(undo)
+                if (role) {
+                    var removes = $('<a>删除</a>');
+                    removes.click(function () {
+                        var action = "/Script/Remove/" + code.id;
+                        $.post(action, null, function (results) {
+                            $("dd[ddid='" + code.id + "']").remove();
+                            $("dl[dlid='" + code.id + "']").fadeOut(delay, function () { $(this).remove(); });
+                        });
+                    });
+                    div.append(removes);
+                }
                 dl.append(div);
-                dt.append(dl).append($('<dd><pre class="brush:js;toolbar: false;">' + code.code + '</pre></dd>'));
+                dt.append(dl).append($('<dd ddid=' + code.id + '><pre class="brush:js;toolbar: false;">' + code.code + '</pre></dd>'));
             });
             $(".codeList", block).append(dt).slideDown(delay);
             SyntaxHighlighter.highlight();

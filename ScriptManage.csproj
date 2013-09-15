@@ -128,7 +128,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\EffectController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ScriptController.cs" />
     <Compile Include="Controllers\SiteController.cs" />
@@ -137,7 +136,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DatabaseContext.cs" />
-    <Compile Include="Models\Effect.cs" />
     <Compile Include="Models\HtmlPager.cs" />
     <Compile Include="Models\JsonResultEx.cs" />
     <Compile Include="Models\Log.cs" />
@@ -304,11 +302,12 @@
     <Content Include="Views\Script\New.cshtml" />
     <Content Include="Views\Script\Edit.cshtml" />
     <Content Include="Views\Script\Download.cshtml" />
-    <Content Include="Views\Effect\Index.cshtml" />
-    <Content Include="Views\Effect\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Effect\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
