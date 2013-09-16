@@ -39,6 +39,7 @@ img { vertical-align:middle;border:0;}
 }
 label.error { color: #f00; margin-left: 5px; }
 .nowrap {text-wrap:none;white-space:nowrap;}
+.overflow { overflow: hidden; }
 .clear { clear: both; height: 0px; line-height: 0px; }
 .LoginForm { margin: 0 auto; width: 300px; height: 250px;font-family: sans-serif,'Microsoft YaHei'; border: 1px solid #555555; margin-top: 150px; padding: 20px 50px 0 50px;background-color:#FFF; border-radius: 8px;  -moz-transition:0.5s;-o-transition:0.5s;-webkit-transition:0.5s;transition:0.5s;color:#222;box-shadow:rgba(255, 255, 255, 0.80) 0 0 30px 5px;
 }
@@ -55,7 +56,7 @@ label.error { color: #f00; margin-left: 5px; }
 
 
 .main {width:100%;margin: 0 auto; font-family: 'Microsoft YaHei',sans-serif;  background-color:rgb(248, 248, 248);color:#222;overflow:hidden;}
-    .main h3 { color: #1F1F20; text-transform: uppercase; text-shadow: 0 1px 0 #fff; font-size: 16px; margin: 8px 20px; }
+    .main h3 { color: #1F1F20;  text-shadow: 0 1px 0 #fff; font-size: 16px; margin: 8px 20px; }
     body>header {height:80px;line-height:80px;background-color:#352925;color:#ed8f00;}
         body header h1 { text-align: center; width: 20%;box-shadow:3px 0px 10px #000;float:left;height:80px;line-height:80px;color:#ed8f00;margin: 0; display:inline-block;}
         body header h2 { padding-left: 55px;height:80px;line-height:80px;color:#ed8f00;margin: 0; display:inline-block;}
@@ -118,12 +119,12 @@ div.editor textarea.code2 { width: 100%;min-height:20px;height:20px;border:0;fon
 .module .contents { margin: 10px 20px; color: #666; }
     .module .contents .forms { line-height: 25px;font-family:'宋体';font-size:12px;}
         .module .contents .forms label { width: 100px; text-align: right; display:inline-block;color:#1d1313}
-        .module .contents .forms input { width: 120px; }
+        .module .contents .forms input[text] { width: 120px; }
         .module .contents .forms textarea {width: 70%;min-height:300px;font-family:Consolas;font-size:14px;line-height:24px;}
         .module .contents .forms textarea.code {width:70%;min-height:20px;height:20px;font-family:Consolas;font-size:14px;overflow-y:hidden;}
     .module .contents .button { margin-left: 100px;float:none; }
         .module .contents .button button { margin: 5px 10px; }
-.module .msg { margin: 10px 0px 10px 100px; color: green;font-family:'宋体';font-size:12px;}
+.msg { margin: 10px 0px 10px 100px; color: green;font-family:'宋体';font-size:12px;}
 
 .tablesorter { width: 100%; margin: -5px 0 10px 0; font-family:"Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;font-size:12px;border-spacing:0;border-collapse:collapse;}
     .tablesorter td { margin: 0; padding: 0; border-bottom: 1px dotted #ccc; }
@@ -147,3 +148,5 @@ div.editor textarea.code2 { width: 100%;min-height:20px;height:20px;border:0;fon
 .pager button {background: #e6b975;color:#391a00;border-radius: 5px;padding:4px 8px;_padding:2px 4px;font-family:'Microsoft YaHei UI';text-align:center;box-shadow: 1px 1px 3px rgba(0,0,0,0.4);margin: 3px; font-size: 14px;border:1px solid #ab9063;transition-duration:0.5s;cursor:default; }
     .pager a:hover,.pager button:hover { text-decoration: none;background-color:#fbebd4;}
     .pager a.current { cursor:default;background: #513000;color:#f9e2c3}
+.effect { padding: 10px;margin-top:20px; }
+    .effect a { margin: 15px 10px; }

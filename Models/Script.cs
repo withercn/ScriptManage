@@ -32,11 +32,12 @@ namespace ScriptManage.Models
             using (var db = new DatabaseContext())
             {
                 var scripts = db.Scripts.FirstOrDefault(s => (s.name == model.name && s.sid == model.siteid));
-                if (scripts == null) return false;
+                if (scripts != null) return false;
                 scripts = db.Scripts.FirstOrDefault(s => s.id == model.id);
                 if (scripts != null)
                 {
                     scripts.name = model.name;
+                    scripts.type = model.type;
                     db.SaveChanges();
                 }
                 db.ScriptsCode.Add(new ScriptsCode() { sid = model.id, code = model.code, dates = DateTime.Now });

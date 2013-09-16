@@ -82,7 +82,7 @@ namespace ScriptManage.Controllers
                 if (UserModel.ValidUser(username, password))
                 {
                     FormsAuthentication.SetAuthCookie(model.username, false);
-                    ViewBag.Message = string.Format("用户：{0} 登陆成功.", username);
+                    ViewBag.Message = string.Format("登陆成功.", username);
                     LogModel.Write(string.Format("用户：{0} 登陆成功.", username));
                     Model.ScriptRedirect(ViewBag, returnUrl);
                 }
@@ -91,9 +91,8 @@ namespace ScriptManage.Controllers
             return View(model);
         }
         [Authorize]
-        public ActionResult Password(string message)
+        public ActionResult Password()
         {
-            ViewBag.Message = message;
             return View();
         }
         [Authorize]
@@ -105,11 +104,11 @@ namespace ScriptManage.Controllers
             {
                 if (UserModel.ChangePassword(model.oldPassword, model.password))
                 {
-                    return RedirectToAction("Password", new { message = "密码修改成功。" });
+                    ViewBag.Message = "密码修改成功。";
+                    Model.ScriptRedirect(ViewBag, Url.Action("Index", "User"));
                 }
                 ModelState.AddModelError("", "修改失败");
             }
-            Model.ScriptRedirect(ViewBag, Url.Action("Index", "User"));
             return View(model);
         }
         public ActionResult Logout(string returnUrl)

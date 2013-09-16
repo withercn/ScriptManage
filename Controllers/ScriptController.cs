@@ -50,7 +50,6 @@ namespace ScriptManage.Controllers
         {
             using (var db = new DatabaseContext())
             {
-                //ViewBag.Site = new SelectList(db.Sites.Select(s => new { s.id, s.domain }).ToList(), "id", "domain", id);
                 ViewBag.Type = new SelectList(db.CodeTypes.Select(s => new { s.id, s.name }).ToList(), "id", "name");   
             }
             return View(new NewScriptModel() { siteid = id });
@@ -74,8 +73,11 @@ namespace ScriptManage.Controllers
                 if (!ScriptModel.NewScript(script, model.code))
                     ModelState.AddModelError("", "指定的脚本名称已经存在");
                 else
+                {
                     ViewBag.Message = "脚本创建成功";
-                Model.ScriptRedirect(ViewBag, Url.Action("Index", "Script", new { id = model.siteid }));
+                    Model.ScriptRedirect(ViewBag, Url.Action("Index", "Script", new { id = model.siteid }));
+                }
+                
             }
             return New(model.siteid);
         }
@@ -113,9 +115,11 @@ namespace ScriptManage.Controllers
                 if (!ScriptModel.Update(model))
                     ModelState.AddModelError("", "指定的脚本名称已经存在");
                 else
-                    ViewBag.Message = "脚本创建成功";
+                {
+                    ViewBag.Message = "脚本修改成功";
+                    Model.ScriptRedirect(ViewBag, Url.Action("Index", "Script", new { id = model.siteid }));
+                }
             }
-            Model.ScriptRedirect(ViewBag, Url.Action("Index", "Script", new { id = model.siteid }));
             return Edit(model.sid);
         }
 

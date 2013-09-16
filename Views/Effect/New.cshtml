@@ -1,0 +1,41 @@
+﻿@model ScriptManage.Models.NewEffectModel
+@{
+    ViewBag.Title = "新建特效/脚本";
+    Layout = "~/Views/Shared/_aside.cshtml";
+}
+@using (Html.BeginForm("New", "Effect"))
+{
+    @Html.AntiForgeryToken()
+<div class="module w90">
+    <header><h3>创建特效/脚本</h3></header>
+    <div class="contents">
+        <ul class="forms">
+            <li>
+                @Html.LabelFor(s => s.name)
+                @Html.TextBoxFor(s => s.name)
+                @Html.ValidationMessageFor(s => s.name)
+            </li>
+            <li>
+                @Html.LabelFor(s => s.action)
+                @Html.TextBoxFor(s => s.action)
+                @Html.ValidationMessageFor(s => s.action)
+            </li>
+            <li>
+                @Html.LabelFor(s=>s.complete)
+                @Html.CheckBoxFor(s => s.complete)启用
+                @Html.ValidationMessageFor(s => s.complete)
+            </li>
+            <li>
+                @Html.LabelFor(s => s.description)
+                @Html.TextAreaFor(s => s.description)
+                @Html.ValidationMessageFor(s => s.description)
+            </li>
+        </ul>
+        <div class="msg">@Html.ValidationSummary(true)@ViewBag.Message</div>
+            <div class="button pager">
+            <button class="normal" type="submit">确定创建</button>
+            <button class="normal" type="reset">重新输入</button>
+        </div>
+    </div>
+</div>
+}

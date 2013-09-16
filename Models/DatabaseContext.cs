@@ -16,6 +16,7 @@ namespace ScriptManage.Models
         public DbSet<ScriptsCode> ScriptsCode { get; set; }
         public DbSet<Logs> Logs { get; set; }
         public DbSet<CodeTypes> CodeTypes { get; set; }
+        public DbSet<Effect> Effect { get; set; }
     }
     [Table("Users")]
     public class Users
@@ -82,5 +83,16 @@ namespace ScriptManage.Models
         public int id { get; set; }
         [Key]
         public string name { get; set; }
+    }
+    [Table("Effect")]
+    public class Effect
+    {
+        [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
+        public int id { get; set; }
+        [Key]
+        public string name { get; set; }
+        public bool complete { get; set; }
+        public string action { get; set; }
+        public string description { get; set; }
     }
 }

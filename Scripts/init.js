@@ -45,19 +45,19 @@ function divInit(obj) {
     $("header h3.hide", obj).hide();
     $("header h3:eq(0)", obj).show();
 }
-$(".list header h3").click(function () {
+$(".scripts header h3").click(function () {
     if (this.className != 'hide') {
         $(this).hide();
         $(this).next().show();
-        var hide = $(".list header h3.hide");
+        var hide = $(".scripts header h3.hide");
         $("input[name='name']", hide).focus();
         $("input[name='name']", hide).select();
     }
 });
-$(".list header h3.hide input:text").blur(function () {
+$(".scripts header h3.hide input:text").blur(function () {
     $(this).parent().hide();
     $(this).parent().prev().show();
-    $(".list header h3 label").html(this.value);
+    $(".scripts header h3 label").html(this.value);
 });
 $("header .history").click(function () {
     var role = eval($(this).attr("role").toLowerCase());
