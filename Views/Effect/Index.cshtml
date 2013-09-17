@@ -15,7 +15,7 @@
 			<thead><tr>
 				<th class="header nowrap w10"><span class="all">全选</span> / <span class="none">反选</span></th>
 				<th class="header nowrap w20">脚本名称</th>
-				<th class="header overflow">脚本描述</th>
+				<th class="header">脚本描述</th>
 				<th class="header w10">启用</th>
 				<th class="header w10">操作</th>
 			</tr></thead>
@@ -25,7 +25,7 @@
 					<tr>
 					<td><input type="checkbox" name="id" value="@m.id" /></td>
 					<td>@m.name</td>
-					<td>@m.description</td>
+					<td class="overflow" title="@m.description"><div>@m.description</div></td>
 					<td>@(m.complete ? "是" : "否")</td>
 					<td class="pager">
 						<a href="@Url.Action("Del", "Effect", new { id = m.id })">删除</a>

@@ -18,6 +18,7 @@ namespace ScriptManage
                         "~/Scripts/SyntaxHighlighter/shCore.js",
                         "~/Scripts/SyntaxHighlighter/shAutoloader.js",
                         "~/Scripts/SyntaxHighlighter/shBrushJScript.js",
+                        "~/Scripts/SyntaxHighlighter/shBrushXml.js",
                         "~/Scripts/SyntaxHighlighter/shBrushCss.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",

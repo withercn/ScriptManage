@@ -12,17 +12,17 @@
         <ul class="forms">
             <li>
                 @Html.LabelFor(s => s.name)
-                @Html.TextBoxFor(s => s.name)
+                @Html.TextBoxFor(s => s.name, new { style = "width:500px;", autofocus = "autofocus" })
                 @Html.ValidationMessageFor(s => s.name)
             </li>
             <li>
                 @Html.LabelFor(s => s.action)
-                @Html.TextBoxFor(s => s.action)
+                @Html.TextBoxFor(s => s.action, new { style = "width:200px;" })
                 @Html.ValidationMessageFor(s => s.action)
             </li>
             <li>
                 @Html.LabelFor(s=>s.complete)
-                @Html.CheckBoxFor(s => s.complete)启用
+                @Html.CheckBoxFor(s => s.complete)
                 @Html.ValidationMessageFor(s => s.complete)
             </li>
             <li>

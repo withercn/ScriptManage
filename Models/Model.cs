@@ -13,7 +13,7 @@ namespace ScriptManage
 {
     public class Model
     {
-        public const int delay = 3000;
+        public const int delay = 1000;
         
         public static string BundleScript(List<string> scriptBlock)
         {

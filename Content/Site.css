@@ -39,7 +39,8 @@ img { vertical-align:middle;border:0;}
 }
 label.error { color: #f00; margin-left: 5px; }
 .nowrap {text-wrap:none;white-space:nowrap;}
-.overflow { overflow: hidden; }
+.overflow {width:50%;}
+    .overflow div { height: 18px; overflow: hidden; font-family:'Microsoft YaHei';}
 .clear { clear: both; height: 0px; line-height: 0px; }
 .LoginForm { margin: 0 auto; width: 300px; height: 250px;font-family: sans-serif,'Microsoft YaHei'; border: 1px solid #555555; margin-top: 150px; padding: 20px 50px 0 50px;background-color:#FFF; border-radius: 8px;  -moz-transition:0.5s;-o-transition:0.5s;-webkit-transition:0.5s;transition:0.5s;color:#222;box-shadow:rgba(255, 255, 255, 0.80) 0 0 30px 5px;
 }
@@ -79,6 +80,7 @@ label.error { color: #f00; margin-left: 5px; }
 .w70 { width: 70%; }
 .w80 { width: 80%; }
 .w90 { width: 90%; }
+.w95 { width: 95%; }
 .passwordForm { width: 50%; }
 .user { width: 70%; }
 .newuser { width: 60%; }
@@ -150,3 +152,12 @@ div.editor textarea.code2 { width: 100%;min-height:20px;height:20px;border:0;fon
     .pager a.current { cursor:default;background: #513000;color:#f9e2c3}
 .effect { padding: 10px;margin-top:20px; }
     .effect a { margin: 15px 10px; }
+.floatdiv fieldset { margin: 10px;padding:10px 20px;line-height:24px;font-family: '宋体'; font-size: 12px;border-radius:3px;}
+.floatdiv fieldset.description { display: block; }
+    .floatdiv fieldset legend { margin-left: 20px;color: green;}
+    .floatdiv fieldset.description { background-color: #e4e4e4; }
+    .floatdiv fieldset .green { color: green;font-size:14px;font-family:'宋体';}
+    .floatdiv fieldset pre { color: #8e6300; font-family: '宋体'; font-size: 12px;margin:0;}
+    .floatdiv fieldset aside { display:block; }
+    .floatdiv fieldset input,.floatdiv fieldset label { vertical-align:middle;}
+        .floatdiv fieldset input.position { width: 50px;text-align: right; }

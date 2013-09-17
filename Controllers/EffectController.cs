@@ -24,6 +24,7 @@ namespace ScriptManage.Controllers
             var query = db.Effect.OrderByDescending(s => s.id).Skip((pageindex - 1) * pagesize).Take(pagesize);
             return View(query);
         }
+        [Authorize(Roles="管理员,系统管理员")]
         public ActionResult Views(int? id)
         {
             ViewBag.SiteID = id;
@@ -37,12 +38,11 @@ namespace ScriptManage.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Del()
+        public RedirectResult Del()
         {
             string list = Request.Form["id"];
             EffectModel.Del(list);
-            Model.ScriptRedirect(ViewBag, Url.Action("Index", "Effect"));
-            return View();
+            return Redirect(Url.Action("Index", "Effect"));
         }
         public ActionResult New() { return View(); }
         [HttpPost]
@@ -61,7 +61,20 @@ namespace ScriptManage.Controllers
             }
             return View();
         }
-        public ActionResult Jquery()
+        public ActionResult Jquery(int? id)
         { return View(); }
+        public ActionResult FloatDiv(int? id)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var query = db.Effect.FirstOrDefault(e => e.action.ToLower() == "floatdiv");
+                if (query != null)
+                {
+                    ViewBag.Name = query.name;
+                    ViewBag.Desctiption = query.description;
+                }
+            }
+            return View();
+        }
     }
 }
