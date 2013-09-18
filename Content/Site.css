@@ -150,14 +150,3 @@ div.editor textarea.code2 { width: 100%;min-height:20px;height:20px;border:0;fon
 .pager button {background: #e6b975;color:#391a00;border-radius: 5px;padding:4px 8px;_padding:2px 4px;font-family:'Microsoft YaHei UI';text-align:center;box-shadow: 1px 1px 3px rgba(0,0,0,0.4);margin: 3px; font-size: 14px;border:1px solid #ab9063;transition-duration:0.5s;cursor:default; }
     .pager a:hover,.pager button:hover { text-decoration: none;background-color:#fbebd4;}
     .pager a.current { cursor:default;background: #513000;color:#f9e2c3}
-.effect { padding: 10px;margin-top:20px; }
-    .effect a { margin: 15px 10px; }
-.floatdiv fieldset { margin: 10px;padding:10px 20px;line-height:24px;font-family: '宋体'; font-size: 12px;border-radius:3px;}
-.floatdiv fieldset.description { display: block; }
-    .floatdiv fieldset legend { margin-left: 20px;color: green;}
-    .floatdiv fieldset.description { background-color: #e4e4e4; }
-    .floatdiv fieldset .green { color: green;font-size:14px;font-family:'宋体';}
-    .floatdiv fieldset pre { color: #8e6300; font-family: '宋体'; font-size: 12px;margin:0;}
-    .floatdiv fieldset aside { display:block; }
-    .floatdiv fieldset input,.floatdiv fieldset label { vertical-align:middle;}
-        .floatdiv fieldset input.position { width: 50px;text-align: right; }
