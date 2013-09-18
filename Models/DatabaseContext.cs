@@ -75,6 +75,7 @@ namespace ScriptManage.Models
         public string code { get; set; }
         public DateTime dates { get; set; }
         public int sid { get; set; }
+        public int type { get; set; }
     }
     [Table("CodeType")]
     public class CodeTypes

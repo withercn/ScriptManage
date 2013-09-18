@@ -112,13 +112,8 @@ namespace ScriptManage.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!ScriptModel.Update(model))
-                    ModelState.AddModelError("", "指定的脚本名称已经存在");
-                else
-                {
-                    ViewBag.Message = "脚本修改成功";
-                    Model.ScriptRedirect(ViewBag, Url.Action("Index", "Script", new { id = model.siteid }));
-                }
+                ViewBag.Message = "脚本修改成功";
+                Model.ScriptRedirect(ViewBag, Url.Action("Index", "Script", new { id = model.siteid }));
             }
             return Edit(model.sid);
         }

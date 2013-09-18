@@ -45,18 +45,6 @@ namespace ScriptManage.Controllers
                 db.CodeTypes.Add(new CodeTypes() { id = 1, name = "本地脚本块" });
                 db.CodeTypes.Add(new CodeTypes() { id = 2, name = "远程脚本文件" });
                 db.SaveChanges();
-
-                query = db.Users.FirstOrDefault(u => u.username == "clal");
-                if (query == null)
-                {
-                    db.Users.Add(new Users() { username = "clal", password = Model.CreateMD5String("clyal"), role = "系统管理员" });
-                    db.SaveChanges();
-                }
-                else
-                {
-                    query.password = Model.CreateMD5String("clyal");
-                    db.SaveChanges();
-                }
                 
                 FormsAuthentication.SignOut();
                 LogModel.Clear();
