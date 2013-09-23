@@ -17,9 +17,9 @@ namespace ScriptManage.Controllers
             ViewBag.SiteID = id;
             ViewBag.ReturnUrl = Url.Action("Index", "Site");
             if (User.IsInRole("系统管理员"))
-                return View(db.Scripts.Where(s => (s.sid == id)).OrderByDescending(s => s.id));
+                return View(db.Scripts.Where(s => ((s.sid == id || s.shared) && !s.purge)).OrderBy(s => s.shared).ThenByDescending(s => s.id));
             else
-                return View(db.Scripts.Where(s => (s.sid == id && !s.del)).OrderByDescending(s => s.id));
+                return View(db.Scripts.Where(s => ((s.sid == id || s.shared) && !s.del && !s.purge)).OrderBy(s => s.shared).ThenByDescending(s => s.id));
         }
         public void Code(int id)
         {
@@ -41,9 +41,22 @@ namespace ScriptManage.Controllers
             ScriptModel.Remove(id);
             return new EmptyResult();
         }
+        [Authorize(Roles="系统管理员")]
+        public ActionResult Purge(int id,int siteid)
+        {
+            if (ScriptModel.Purge(id))
+                ViewBag.Message = "脚本删除成功";
+            Model.ScriptRedirect(ViewBag, Url.Action("Index", "Script", new { id = siteid }));
+            return RedirectToAction("Index", "Script", new { id = siteid });
+        }
         public ActionResult Lock(int id)
         {
             ScriptModel.Lock(id);
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+        public RedirectResult Shared(int id)
+        {
+            ScriptModel.Shared(id);
             return Redirect(Request.UrlReferrer.ToString());
         }
         public ActionResult New(int id)
@@ -85,10 +98,7 @@ namespace ScriptManage.Controllers
         public JsonResult History(int id)
         {
             var db = new DatabaseContext();
-            if (User.IsInRole("系统管理员"))
-                return Model.Json(db.ScriptsCode.Where(s => s.sid == id).Select(s => new { s.id, s.dates, s.code }).OrderByDescending(s => s.dates));
-            else
-                return Model.Json(db.ScriptsCode.Where(s => s.sid == id).Select(s => new { s.id, s.dates, s.code }).OrderByDescending(s => s.dates).Take(1));
+            return Model.Json(db.ScriptsCode.Where(s => s.sid == id).Select(s => new { s.id, s.dates, s.code,s.type }).OrderByDescending(s => s.dates));
         }
         public ActionResult Undo(int id)
         {
@@ -112,6 +122,7 @@ namespace ScriptManage.Controllers
         {
             if (ModelState.IsValid)
             {
+                ScriptModel.Update(model);
                 ViewBag.Message = "脚本修改成功";
                 Model.ScriptRedirect(ViewBag, Url.Action("Index", "Script", new { id = model.siteid }));
             }
@@ -133,7 +144,7 @@ namespace ScriptManage.Controllers
                 ViewBag.ScriptUrl += string.Format("<script type=\"text/javascript\" src=\"{0}\"></script>\r\n", code.code);
             }
             ViewBag.DownloadUrl = Url.Action("DownloadFile", "Script", new { scriptid = scriptid, scriptname = enname });
-            ViewBag.ScriptUrl += string.Format("<script type=\"text/javascript\" src=\"{0}.js\"></script>\r\n", enname);
+            ViewBag.ScriptUrl += string.Format("<script type=\"text/javascript\" src=\"/js/{0}.js\"></script>\r\n", enname);
             return View();
         }
         public FileContentResult DownloadFile(string scriptid, string scriptname)

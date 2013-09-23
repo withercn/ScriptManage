@@ -21,7 +21,7 @@ namespace ScriptManage.Models
                 db.Scripts.Add(script);
                 db.SaveChanges();
                 var id = script.id;
-                ScriptsCode scode = new ScriptsCode() { sid = id, code = code, dates = DateTime.Now };
+                ScriptsCode scode = new ScriptsCode() { sid = id, code = code, dates = DateTime.Now, type = script.type };
                 db.ScriptsCode.Add(scode);
                 db.SaveChanges();
                 return true;
@@ -38,7 +38,7 @@ namespace ScriptManage.Models
                     scripts.type = model.type;
                     db.SaveChanges();
                 }
-                db.ScriptsCode.Add(new ScriptsCode() { sid = model.id, code = model.code, dates = DateTime.Now });
+                db.ScriptsCode.Add(new ScriptsCode() { sid = model.id, code = model.code, dates = DateTime.Now, type = model.type });
                 db.SaveChanges();
             }
         }
@@ -52,6 +52,24 @@ namespace ScriptManage.Models
                     script.del = !script.del;
                     db.SaveChanges();
                 }
+            }
+        }
+        public static bool Purge(int id)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var script = db.Scripts.FirstOrDefault(s => s.id == id);
+                if (script != null)
+                {
+                    var code = db.ScriptsCode.FirstOrDefault(s => s.sid == id);
+                    if (code != null)
+                    {
+                        script.purge = true;
+                        db.SaveChanges();
+                        return true;
+                    }
+                }
+                return false;
             }
         }
         public static void Remove(int id)
@@ -86,6 +104,21 @@ namespace ScriptManage.Models
                 if (code != null)
                 {
                     code.dates = DateTime.Now;
+                    var script = db.Scripts.FirstOrDefault(s => s.id == code.sid);
+                    if (script != null)
+                        script.type = code.type;
+                    db.SaveChanges();
+                }
+            }
+        }
+        public static void Shared(int id)
+        {
+            using (var db = new DatabaseContext())
+            {
+                var script = db.Scripts.FirstOrDefault(s => s.id == id);
+                if (script != null)
+                {
+                    script.shared = !script.shared;
                     db.SaveChanges();
                 }
             }
@@ -105,7 +138,7 @@ namespace ScriptManage.Models
                                  sid = s.id,
                                  siteid = s.sid,
                                  locks = s.locks,
-                                 type = s.type,
+                                 type = c.type,
                                  del = s.del,
                                  name = s.name,
                                  code = c.code,

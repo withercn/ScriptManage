@@ -71,7 +71,7 @@ $("header .history").click(function () {
             var dt = $("<dt></dt>");
             $(data).each(function (index) {
                 var code = data[index];
-                var dl = $('<dl dlid="' + code.id + '" class="pager">修改时间：' + code.dates + '</dl>');
+                var dl = $('<dl dlid="' + code.id + '" class="pager">修改时间：' + code.dates + (code.type == 2 ? ' <span class="remote">(远程脚本)</span>' : '') + '</dl>');
                 var link = $("<a>代码</a>");
                 link.click(function () {
                     var dd = $(this).parent().parent().next();
@@ -80,10 +80,11 @@ $("header .history").click(function () {
                     else
                         dd.slideUp(delay);
                 });
-                var undo = $('<a href="/Script/Undo/' + code.id + '">还原</a>');
                 var div = $("<div></div>");
-                div.append(link).append(undo)
+                div.append(link);
                 if (role) {
+                    var undo = $('<a href="/Script/Undo/' + code.id + '">还原</a>');
+                    div.append(undo);
                     var removes = $('<a>删除</a>');
                     removes.click(function () {
                         var action = "/Script/Remove/" + code.id;
@@ -94,6 +95,19 @@ $("header .history").click(function () {
                     });
                     div.append(removes);
                 }
+                var run = $("<a>运行</a>");
+                run.click(function () {
+                    var wintar = window.open("about:blank");
+                    wintar.document.open('text/html', 'replace');
+                    wintar.opener = null;
+                    wintar.document.writeln('<script type="text/javascript" src="/scripts/jquery-1.8.2.min.js"></script>');
+                    if (code.type == 2)
+                        wintar.document.write('<script type="text/javascript" src="' + code.code + '"></script>');
+                    else
+                        wintar.document.write('<script type="text/javascript">' + code.code + '</script>');
+                    wintar.document.close();
+                });
+                div.append(run);
                 dl.append(div);
                 dt.append(dl).append($('<dd ddid=' + code.id + '><pre class="brush:js;toolbar: false;">' + code.code + '</pre></dd>'));
             });

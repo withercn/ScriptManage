@@ -22,16 +22,16 @@
 			<tbody>
 				@foreach (var m in Model)
 				{
-					<tr>
+			    <tr>
 					<td><input type="checkbox" name="id" value="@m.id" /></td>
 					<td>@m.id</td>
 					<td>@m.domain</td>
 					<td>@m.name</td>
 					<td class="pager">
 						@if(User.IsInRole("系统管理员")){<a href="@Url.Action("Del", "Site", new { id = m.id })">删除</a>}
-						<a href="@Url.Action("Index", "Script", new { id = m.id })">脚本管理</a>
+						<a href="@Url.Action("Index", "Script", new { id = m.id })">脚本</a>
 					</td>
-					</tr>
+				</tr>
 				}
 			</tbody>
 		</table>

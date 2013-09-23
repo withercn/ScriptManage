@@ -51,9 +51,12 @@ namespace ScriptManage.Controllers
                 {
                     ModelState.AddModelError("", "域名已经存在。");
                 }
-                ViewBag.Message = "添加站点成功。";
+                else
+                {
+                    ViewBag.Message = "添加站点成功。";
+                    Model.ScriptRedirect(ViewBag, Url.Action("Index", "Site"));
+                }
             }
-            Model.ScriptRedirect(ViewBag, Url.Action("Index", "Site"));
             return View();
         }
     }

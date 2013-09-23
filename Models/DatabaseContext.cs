@@ -14,7 +14,6 @@ namespace ScriptManage.Models
         public DbSet<Sites> Sites { get; set; }
         public DbSet<Scripts> Scripts { get; set; }
         public DbSet<ScriptsCode> ScriptsCode { get; set; }
-        public DbSet<Logs> Logs { get; set; }
         public DbSet<CodeTypes> CodeTypes { get; set; }
     }
     [Table("Users")]
@@ -26,15 +25,6 @@ namespace ScriptManage.Models
         public string username { get; set; }
         public string password { get; set; }
         public string role { get; set; }
-    }
-    [Table("Logs")]
-    public class Logs
-    {
-        [Key]
-        [DatabaseGenerated(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
-        public string logs { get; set; }
-        public DateTime dates { get; set; }
     }
     [Table("Sites")]
     public class Sites
@@ -64,6 +54,8 @@ namespace ScriptManage.Models
         public int type { get; set; }
         public bool del { get; set; }
         public bool locks { get; set; }
+        public bool purge { get; set; }
+        public bool shared { get; set; }
         public DateTime dates { get; set; }
     }
     [Table("ScriptsCode")]

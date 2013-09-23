@@ -30,8 +30,6 @@ namespace ScriptManage.Models
                 {
                     db.Sites.Add(site);
                     db.SaveChanges();
-                    if (!Directory.Exists(HttpContext.Current.Server.MapPath("/block/" + site.domain)))
-                        Directory.CreateDirectory(HttpContext.Current.Server.MapPath("/block/" + site.domain));
                     return true;
                 }
                 return false;
@@ -42,7 +40,7 @@ namespace ScriptManage.Models
             if (string.IsNullOrEmpty(siteid)) return null;
             using (var db = new DatabaseContext())
             {
-                var query = db.Database.SqlQuery<ScriptsCode>(string.Format("select s.id,s.code,s.dates,s.sid from scriptscode s inner join(select max(dates) dates,sid from ScriptsCode group by sid) b on s.sid=b.sid and s.dates=b.dates and s.sid in (select id from scripts where id in ({0}) and type=1 and del=0)", siteid)).ToList();
+                var query = db.Database.SqlQuery<ScriptsCode>(string.Format("select s.id,s.code,s.dates,s.sid,s.type from scriptscode s inner join(select max(dates) dates,sid from ScriptsCode group by sid) b on s.sid=b.sid and s.dates=b.dates and s.sid in (select id from scripts where id in ({0}) and type=1 and del=0)", siteid)).ToList();
                 return query;
             }
         }
@@ -51,7 +49,7 @@ namespace ScriptManage.Models
             if (string.IsNullOrEmpty(siteid)) return null;
             using (var db = new DatabaseContext())
             {
-                var query = db.Database.SqlQuery<ScriptsCode>(string.Format("select s.id,s.code,s.dates,s.sid from scriptscode s inner join(select max(dates) dates,sid from ScriptsCode group by sid) b on s.sid=b.sid and s.dates=b.dates and s.sid in (select id from scripts where id in ({0}) and type=2 and del=0)", siteid)).ToList();
+                var query = db.Database.SqlQuery<ScriptsCode>(string.Format("select s.id,s.code,s.dates,s.sid,s.type from scriptscode s inner join(select max(dates) dates,sid from ScriptsCode group by sid) b on s.sid=b.sid and s.dates=b.dates and s.sid in (select id from scripts where id in ({0}) and type=2 and del=0)", siteid)).ToList();
                 return query;
             }
         }
